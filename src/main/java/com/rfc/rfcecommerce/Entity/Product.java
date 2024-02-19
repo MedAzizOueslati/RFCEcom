@@ -20,9 +20,5 @@ public class Product {
     @Lob
     @Column(columnDefinition = "longblob")
     private byte[] img;
-    @ManyToOne(fetch = FetchType.LAZY,optional = false)
-    @JoinColumn(name = "category_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-    private Category category;
+
 }
