@@ -1,12 +1,13 @@
 package com.rfc.rfcecommerce.Entity;
 
-import jakarta.persistence.*;
 import lombok.Data;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Data
+@Table(name = "users")
 
 public class User implements Serializable {
     @Id
@@ -15,10 +16,20 @@ public class User implements Serializable {
     private String email;
     private String password;
     private String Name;
+    @Enumerated(EnumType.STRING)
     private UserRole role;
     @Lob
     @Column(columnDefinition = "longblob")
     private byte[] img;
 
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", Name='" + Name + '\'' +
+                ", role=" + role +
+                '}';
+    }
 }
