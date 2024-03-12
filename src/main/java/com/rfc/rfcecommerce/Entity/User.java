@@ -22,14 +22,5 @@ public class User implements Serializable {
     @Column(columnDefinition = "longblob")
     private byte[] img;
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", Name='" + Name + '\'' +
-                ", role=" + role +
-                '}';
-    }
+
 }

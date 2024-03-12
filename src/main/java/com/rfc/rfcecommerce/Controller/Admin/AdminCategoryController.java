@@ -23,7 +23,7 @@ public class AdminCategoryController {
 
     }
 
-    @GetMapping("")
+    @GetMapping("allCategory")
     public ResponseEntity<List<Category>> getAllCategories(){
         return ResponseEntity.ok(categoryService.getAllCategories());
 

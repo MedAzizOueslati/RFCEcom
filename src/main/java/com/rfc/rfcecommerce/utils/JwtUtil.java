@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Component
+
 public class JwtUtil {
     public static final String SECRET = "secret";
 
@@ -35,8 +36,7 @@ public class JwtUtil {
     }
 
     private Key getSignKey() {
-        byte[] keybytes = Decoders.BASE64.decode(SECRET);
-        return Keys.hmacShaKeyFor(keybytes);
+        return Keys.secretKeyFor(SignatureAlgorithm.HS256);
     }
     public String extractUsername(String token){
         return extractClaim(token , Claims::getSubject);

@@ -60,7 +60,7 @@ public class AuthServiceImpl implements IAuthService {
         if (null == adminAccount ){
             User user = new User();
             user.setEmail("admin@test.com");
-            user.setName("aziz");
+            user.setName("admin");
             user.setRole(UserRole.ADMIN);
             user.setPassword(new BCryptPasswordEncoder().encode("Admin@123"));
             userRepo.save(user);

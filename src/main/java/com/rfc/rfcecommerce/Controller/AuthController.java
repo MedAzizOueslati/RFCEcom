@@ -45,7 +45,7 @@ public class AuthController {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword()));
         } catch (BadCredentialsException e) {
-            throw new BadCredentialsException("Incorrect username or password.");
+            return new ResponseEntity<>("Incorrect username or password.", HttpStatus.UNAUTHORIZED);
         }
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
@@ -59,12 +59,14 @@ public class AuthController {
                     .toString();
 
             HttpHeaders headers = new HttpHeaders();
+            response.addHeader("Access-Control-Expose-Headers","Authorization");
+            response.addHeader("Access-Control-Allow-Headers","Authorization, X-PINGOTHER, Origin, " +
+                    "X-Requested-With, Content-Type, Accept, X-Custom-header ");
             headers.add(HEADER_STRING, TOKEN_PREFIX + jwt);
 
             return new ResponseEntity<>(responseBody, headers, HttpStatus.OK);
         }
 
-        // Handle the case where the optionalUser is not present
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
     @PostMapping("/sign-up")

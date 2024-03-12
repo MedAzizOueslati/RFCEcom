@@ -27,11 +27,11 @@ public class CartItems {
     @OnDelete(action = OnDeleteAction.CASCADE)*/
     private Product product;
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
-/*    @JoinColumn(name = "user_id",nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)*/
+    @JoinColumn(name = "user_id",nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
     @ManyToOne(fetch = FetchType.LAZY)
-/*    @JoinColumn(name = "order_id")*/
+    @JoinColumn(name = "order_id")
     private Order order;
 
 
