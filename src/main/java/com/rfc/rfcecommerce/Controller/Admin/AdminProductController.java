@@ -11,11 +11,11 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/admin")
+@RequestMapping("/admin")
 @RequiredArgsConstructor
 public class AdminProductController {
     private final IProductService productService;
-   @PostMapping("/addProduct")
+   @PostMapping("/product")
     public ResponseEntity<ProductDto> addProduct(@ModelAttribute ProductDto productDto) throws IOException {
         ProductDto productDto1 = productService.addProduct(productDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(productDto1);
