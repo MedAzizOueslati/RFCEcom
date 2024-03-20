@@ -19,7 +19,7 @@ import javax.persistence.*;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
     private String name;
     private Long price;
     @Lob
@@ -35,7 +35,7 @@ public class Product {
 
     public ProductDto getDto(){
         ProductDto productDto = new ProductDto();
-        productDto.setId(Id);
+        productDto.setId(id);
         productDto.setName(name);
         productDto.setPrice(price);
         productDto.setDescription(Description);
