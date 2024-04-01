@@ -1,5 +1,6 @@
 package com.rfc.rfcecommerce.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.rfc.rfcecommerce.dto.CartItemsDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,6 +15,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "cart_items")
+
 
 
 public class CartItems {

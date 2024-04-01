@@ -57,6 +57,8 @@ public class AuthController {
                     .put("userId", optionalUser.get().getId())
                     .put("role", optionalUser.get().getRole())
                     .toString();
+            System.out.println(jwt);
+
 
             HttpHeaders headers = new HttpHeaders();
             response.addHeader("Access-Control-Expose-Headers","Authorization");
@@ -64,7 +66,7 @@ public class AuthController {
                     "X-Requested-With, Content-Type, Accept, X-Custom-header ");
             headers.add(HEADER_STRING, TOKEN_PREFIX + jwt);
 
-            return new ResponseEntity<>(responseBody, headers, HttpStatus.OK);
+            return new ResponseEntity<>(responseBody , headers, HttpStatus.OK);
         }
 
         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

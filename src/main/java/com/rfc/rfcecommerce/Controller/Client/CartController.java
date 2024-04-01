@@ -3,6 +3,7 @@ package com.rfc.rfcecommerce.Controller.Client;
 import com.rfc.rfcecommerce.Service.client.cart.ICartService;
 import com.rfc.rfcecommerce.dto.AddProductToCart;
 import com.rfc.rfcecommerce.dto.OrderDto;
+import com.rfc.rfcecommerce.dto.PlaceOrderDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +18,24 @@ public class CartController {
     @PostMapping("/cart")
     public ResponseEntity<?> addProductToCart(@RequestBody AddProductToCart addProductToCart){
         return cartService.addProductToCart(addProductToCart);
-    }    @PostMapping("/cart/{userId}")
-    public ResponseEntity<?> addProductToCart(@PathVariable Long userId){
+    }
+    @GetMapping("/cart/{userId}")
+    public ResponseEntity<?> getCartByUserId(@PathVariable Long userId){
         OrderDto orderDto = cartService.getCartByUserId(userId);
         return ResponseEntity.status(HttpStatus.OK).body(orderDto);
     }
+    @PostMapping("/addition")
+    public ResponseEntity<?> increaseQuantity(@RequestBody AddProductToCart addProductToCart){
+        return ResponseEntity.status(HttpStatus.CREATED).body(cartService.increaseQuantity(addProductToCart));
+    }
+    @PostMapping("/decrease")
+    public ResponseEntity<?> decreaseQuantity(@RequestBody AddProductToCart addProductToCart){
+        return ResponseEntity.status(HttpStatus.CREATED).body(cartService.decreaseQuantity(addProductToCart));
+    }
+
+    @PostMapping("/placeOrder")
+    public ResponseEntity<?> PlaceOrder(@RequestBody PlaceOrderDto placeOrderDto){
+        return ResponseEntity.status(HttpStatus.CREATED).body(cartService.placeOrder(placeOrderDto));
+    }
+
 }

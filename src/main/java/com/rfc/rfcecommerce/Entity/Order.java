@@ -1,5 +1,6 @@
 package com.rfc.rfcecommerce.Entity;
 
+import com.rfc.rfcecommerce.dto.OrderDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -35,6 +36,16 @@ public class Order {
     private User user;
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "order")
     private List<CartItems> cartItems;
+    public OrderDto getOrderDto(){
+        OrderDto orderDto = new OrderDto();
+        orderDto.setId(id);
+        orderDto.setOrderDescption(orderDescption);
+        orderDto.setDate(date);
+        orderDto.setAmount(amount);
+        orderDto.setOrderStatus(OrderStatus.Pending);
+        orderDto.setTotalAmount( getTotalAmount());
+        return orderDto;
+    }
 
 
 }
