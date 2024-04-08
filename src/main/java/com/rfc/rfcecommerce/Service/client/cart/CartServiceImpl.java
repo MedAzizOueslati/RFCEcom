@@ -33,39 +33,51 @@ public class CartServiceImpl implements ICartService{
 
     public ResponseEntity<?> addProductToCart(AddProductToCart addProductToCart) {
         Order activeOrder = orderRepo.findByUserIdAndOrderStatus(addProductToCart.getUserId(), OrderStatus.Pending);
-        Optional<CartItems> optionalCartItems = cartItemRepo.findByProductIdAndOrderIdAndUserId
-                (addProductToCart.getProductId(), activeOrder.getId(), addProductToCart.getUserId());
 
-        if (optionalCartItems.isPresent()) {
-
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
-
-        } else {
-            Optional<Product> optionalProduct = productRepo.findById(addProductToCart.getProductId());
-            Optional<User> optionalUser = userRepo.findById(addProductToCart.getUserId());
-
-            if (optionalProduct.isPresent() && optionalUser.isPresent()) {
-                CartItems cart = new CartItems();
-                cart.setProduct(optionalProduct.get());
-                cart.setPrice(optionalProduct.get().getPrice());
-                cart.setQuantity(1L);
-                cart.setUser(optionalUser.get());
-                cart.setOrder(activeOrder);
-
-                CartItems updateCart = cartItemRepo.save(cart);
-                activeOrder.setTotalAmount(activeOrder.getTotalAmount() + cart.getPrice());
-                activeOrder.setAmount(activeOrder.getAmount() + cart.getPrice());
-                activeOrder.getCartItems().add(cart);
-                orderRepo.save(activeOrder);
-
-                return ResponseEntity.status(HttpStatus.CREATED).body(cart);
-
-            } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User or Product not found");
-            }
+        // Vérifier si l'activeOrder est null
+        if (activeOrder == null) {
+            // Si l'activeOrder est null, créer un nouvel order pour l'utilisateur
+            activeOrder = new Order();
+            activeOrder.setUser(userRepo.findById(addProductToCart.getUserId()).orElse(null));
+            activeOrder.setOrderStatus(OrderStatus.Pending);
+            activeOrder = orderRepo.save(activeOrder);
         }
 
+        // Maintenant activeOrder ne devrait plus être null
+        if (activeOrder != null) {
+            Optional<CartItems> optionalCartItems = cartItemRepo.findByProductIdAndOrderIdAndUserId(
+                    addProductToCart.getProductId(), activeOrder.getId(), addProductToCart.getUserId());
+
+            if (optionalCartItems.isPresent()) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
+            } else {
+                Optional<Product> optionalProduct = productRepo.findById(addProductToCart.getProductId());
+                Optional<User> optionalUser = userRepo.findById(addProductToCart.getUserId());
+
+                if (optionalProduct.isPresent() && optionalUser.isPresent()) {
+                    CartItems cart = new CartItems();
+                    cart.setProduct(optionalProduct.get());
+                    cart.setPrice(optionalProduct.get().getPrice());
+                    cart.setQuantity(1L);
+                    cart.setUser(optionalUser.get());
+                    cart.setOrder(activeOrder);
+
+                    CartItems updateCart = cartItemRepo.save(cart);
+                    activeOrder.setTotalAmount(activeOrder.getTotalAmount() + cart.getPrice());
+                    activeOrder.setAmount(activeOrder.getAmount() + cart.getPrice());
+                    activeOrder.getCartItems().add(cart);
+                    orderRepo.save(activeOrder);
+
+                    return ResponseEntity.status(HttpStatus.CREATED).body(cart);
+                } else {
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User or Product not found");
+                }
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create or retrieve activeOrder");
+        }
     }
+
     public OrderDto getCartByUserId(Long userId){
         Order activeOrder = orderRepo.findByUserIdAndOrderStatus(userId, OrderStatus.Pending);
         List<CartItemsDto> cartItemsDtoList = activeOrder.getCartItems().stream().map(CartItems::getCartDto).collect(Collectors.toList());
@@ -151,5 +163,9 @@ public class CartServiceImpl implements ICartService{
             return activeOrder.getOrderDto();
         }
 return null;
+    }
+
+    public List<OrderDto> getMyPlacedOrders(Long userId){
+        return  orderRepo.findByUserIdAndOrderStatusIn(userId, List.of(OrderStatus.Placed, OrderStatus.Shipped, OrderStatus.Delivered) ).stream().map(Order::getOrderDto).collect(Collectors.toList());
     }
 }

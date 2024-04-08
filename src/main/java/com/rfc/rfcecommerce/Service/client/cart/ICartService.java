@@ -5,6 +5,8 @@ import com.rfc.rfcecommerce.dto.OrderDto;
 import com.rfc.rfcecommerce.dto.PlaceOrderDto;
 import org.springframework.http.ResponseEntity;
 
+import java.util.List;
+
 public interface ICartService {
     public ResponseEntity<?> addProductToCart(AddProductToCart addProductToCart);
     public OrderDto getCartByUserId(Long userId);
@@ -12,5 +14,6 @@ public interface ICartService {
 
     public OrderDto decreaseQuantity(AddProductToCart addProductToCart);
     public OrderDto placeOrder(PlaceOrderDto placeOrderDto);
+    public List<OrderDto> getMyPlacedOrders(Long userId);
 
     }

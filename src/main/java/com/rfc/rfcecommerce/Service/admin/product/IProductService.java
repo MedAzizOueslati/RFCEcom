@@ -12,6 +12,8 @@ public interface IProductService {
     public List<ProductDto> getAllProductsByName(String name);
     public boolean deleteProduct(Long id);
 
+    public ProductDto getProductById(Long productId);
+    public ProductDto updateProduct(Long productId,ProductDto productDto) throws IOException ;
 
 
     }

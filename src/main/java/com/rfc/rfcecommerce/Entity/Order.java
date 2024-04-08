@@ -25,6 +25,7 @@ public class Order {
     private Long amount;
     private String address;
     private String payment;
+    @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
     private Long totalAmount;
     private Long discount;
@@ -32,18 +33,21 @@ public class Order {
 
     @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id",referencedColumnName = "id")
-
     private User user;
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "order")
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "order")
     private List<CartItems> cartItems;
     public OrderDto getOrderDto(){
         OrderDto orderDto = new OrderDto();
-        orderDto.setId(id);
-        orderDto.setOrderDescption(orderDescption);
-        orderDto.setDate(date);
-        orderDto.setAmount(amount);
-        orderDto.setOrderStatus(OrderStatus.Pending);
-        orderDto.setTotalAmount( getTotalAmount());
+        orderDto.setId(this.id);
+        orderDto.setOrderDescption(this.orderDescption);
+        orderDto.setDate(this.date);
+        orderDto.setAmount(this.amount);
+        orderDto.setAddress(this.address);
+        orderDto.setOrderStatus(this.orderStatus);
+        orderDto.setTotalAmount( this.totalAmount);
+        orderDto.setTrackingId(this.trackingId);
+        orderDto.setUserName(this.user.getName());
+
         return orderDto;
     }
 
