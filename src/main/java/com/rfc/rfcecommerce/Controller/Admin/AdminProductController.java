@@ -50,7 +50,7 @@ public class AdminProductController {
     @PutMapping("product/{productId}")
     public  ResponseEntity<ProductDto> updateProduct(@PathVariable Long productId,@ModelAttribute ProductDto productDto) throws IOException {
        ProductDto updatedProduct = productService.updateProduct(productId,productDto);
-        if (productDto != null) {
+        if (updatedProduct != null) {
             return ResponseEntity.ok(updatedProduct);}
             else{
                 return ResponseEntity.notFound().build();
