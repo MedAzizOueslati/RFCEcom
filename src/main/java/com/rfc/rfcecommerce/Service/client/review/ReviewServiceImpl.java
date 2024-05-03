@@ -53,8 +53,8 @@ public class ReviewServiceImpl implements IReviewService {
         if(optionalProduct.isPresent() && optionalUser.isPresent()){
             Review review =new Review();
 
-            review.setRating(review.getRating());
-            review.setDescription(review.getDescription());
+            review.setRating(reviewDto.getRating());
+            review.setDescription(reviewDto.getDescription());
             review.setProduct(optionalProduct.get());
             review.setUser(optionalUser.get());
             review.setImg(reviewDto.getImg().getBytes());

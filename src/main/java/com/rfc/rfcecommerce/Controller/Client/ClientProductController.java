@@ -1,6 +1,7 @@
 package com.rfc.rfcecommerce.Controller.Client;
 
 import com.rfc.rfcecommerce.Service.client.ClientProductServiceImpl;
+import com.rfc.rfcecommerce.dto.ProductDetailsDto;
 import com.rfc.rfcecommerce.dto.ProductDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,12 @@ public class ClientProductController {
     public ResponseEntity<List<ProductDto>> getAllProductsByName(@PathVariable String name){
         List<ProductDto> productDtos = clientProductService.searchAllProductsByName(name);
         return  ResponseEntity.ok(productDtos);
+    }
+    @GetMapping("/product/{productId}")
+    public ResponseEntity<ProductDetailsDto> getProductDetailById(@PathVariable Long productId){
+        ProductDetailsDto productDetailDto = clientProductService.getProductDetailById(productId);
+        if (productDetailDto == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(productDetailDto);
     }
 
 }
