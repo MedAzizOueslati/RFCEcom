@@ -89,18 +89,18 @@
                 <version>4.0.1</version> <!-- ou la version appropriée pour votre projet -->
                 <scope>provided</scope>
             </dependency>
-            <dependency>
-                <groupId>org.pitest</groupId>
-                <artifactId>pitest</artifactId>
-                <version>1.16.1</version>
-
-            </dependency>
+                <!-- Autres dépendances -->
                 <dependency>
-                    <groupId>org.pitest</groupId>
-                    <artifactId>pitest-junit5-plugin</artifactId>
-                    <version>0.13</version>
+                    <groupId>org.junit.jupiter</groupId>
+                    <artifactId>junit-jupiter-api</artifactId>
+                    <version>5.8.0</version> <!-- Version la plus récente de JUnit 5 -->
                     <scope>test</scope>
                 </dependency>
+            <dependency>
+                <artifactId>unlogged-sdk</artifactId>
+                <groupId>video.bug</groupId>
+                <version>0.6.1</version>
+            </dependency>
 
 
 
