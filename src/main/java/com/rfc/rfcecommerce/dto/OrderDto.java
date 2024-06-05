@@ -1,11 +1,8 @@
 package com.rfc.rfcecommerce.dto;
 
-import com.rfc.rfcecommerce.Entity.CartItems;
-import com.rfc.rfcecommerce.Entity.OrderStatus;
-import com.rfc.rfcecommerce.Entity.User;
+import com.rfc.rfcecommerce.entity.OrderStatus;
 import lombok.*;
 
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;

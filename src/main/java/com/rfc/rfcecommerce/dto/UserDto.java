@@ -1,6 +1,6 @@
 package com.rfc.rfcecommerce.dto;
 
-import com.rfc.rfcecommerce.Entity.UserRole;
+import com.rfc.rfcecommerce.entity.UserRole;
 import lombok.Data;
 
 @Data

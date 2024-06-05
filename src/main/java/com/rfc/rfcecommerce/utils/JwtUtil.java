@@ -1,10 +1,8 @@
 package com.rfc.rfcecommerce.utils;
 
 
-import com.rfc.rfcecommerce.Entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
