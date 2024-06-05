@@ -89,6 +89,12 @@
                 <version>4.0.1</version> <!-- ou la version appropriée pour votre projet -->
                 <scope>provided</scope>
             </dependency>
+            <dependency>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest</artifactId>
+                <version>1.16.1</version>
+
+            </dependency>
 
 
         </dependencies>
