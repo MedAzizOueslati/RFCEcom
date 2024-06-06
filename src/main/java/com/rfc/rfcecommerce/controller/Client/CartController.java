@@ -18,25 +18,25 @@ public class CartController {
     private final ICartService cartService;
 
     @PostMapping("/cart")
-    public ResponseEntity<?> addProductToCart(@RequestBody AddProductToCart addProductToCart){
+    public ResponseEntity<Object> addProductToCart(@RequestBody AddProductToCart addProductToCart){
         return cartService.addProductToCart(addProductToCart);
     }
     @GetMapping("/cart/{userId}")
-    public ResponseEntity<?> getCartByUserId(@PathVariable Long userId){
+    public ResponseEntity<Object> getCartByUserId(@PathVariable Long userId){
         OrderDto orderDto = cartService.getCartByUserId(userId);
         return ResponseEntity.status(HttpStatus.OK).body(orderDto);
     }
     @PostMapping("/addition")
-    public ResponseEntity<?> increaseQuantity(@RequestBody AddProductToCart addProductToCart){
+    public ResponseEntity<Object> increaseQuantity(@RequestBody AddProductToCart addProductToCart){
         return ResponseEntity.status(HttpStatus.CREATED).body(cartService.increaseQuantity(addProductToCart));
     }
     @PostMapping("/decrease")
-    public ResponseEntity<?> decreaseQuantity(@RequestBody AddProductToCart addProductToCart){
+    public ResponseEntity<Object> decreaseQuantity(@RequestBody AddProductToCart addProductToCart){
         return ResponseEntity.status(HttpStatus.CREATED).body(cartService.decreaseQuantity(addProductToCart));
     }
 
     @PostMapping("/placeOrder")
-    public ResponseEntity<?> PlaceOrder(@RequestBody PlaceOrderDto placeOrderDto){
+    public ResponseEntity<Object> PlaceOrder(@RequestBody PlaceOrderDto placeOrderDto){
         return ResponseEntity.status(HttpStatus.CREATED).body(cartService.placeOrder(placeOrderDto));
     }
     @GetMapping("/myOrders/{userId}")

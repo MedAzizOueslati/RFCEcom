@@ -20,7 +20,7 @@ public class ReviewController {
         return ResponseEntity.ok(reviewService.getOrderedResponseDto(orderId));
     }
 @PostMapping("/review")
-    public ResponseEntity<?> giveReview(@ModelAttribute ReviewDto reviewDto) throws IOException {
+    public ResponseEntity<Object> giveReview(@ModelAttribute ReviewDto reviewDto) throws IOException {
         ReviewDto reviewDto1 = reviewService.giveReview(reviewDto);
         if (reviewDto1==null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Something Went Wrong");
         return ResponseEntity.status(HttpStatus.CREATED).body(reviewDto1);
