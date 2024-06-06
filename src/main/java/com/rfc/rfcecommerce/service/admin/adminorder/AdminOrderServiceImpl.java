@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class AdminOrderServiceImpl implements AdminOrderService {
     private final IOrderRepo orderRepo;
     public List<OrderDto> getAllPlacedOrders(){
-        List<Order> orderList = orderRepo.findAllByOrderStatusIn(List.of(OrderStatus.Placed,OrderStatus.Delivered, OrderStatus.Shipped));
+        List<Order> orderList = orderRepo.findAllByOrderStatusIn(List.of(OrderStatus.PLACED,OrderStatus.DELIVERED, OrderStatus.SHIPPED));
     return orderList.stream().map(Order::getOrderDto).collect(Collectors.toList());
     }
 
@@ -26,11 +26,11 @@ public class AdminOrderServiceImpl implements AdminOrderService {
         if (optionalOrder.isPresent()){
             Order order = optionalOrder.get();
 
-            if (Objects.equals(status, "Shipped")){
-                order.setOrderStatus(OrderStatus.Shipped);
+            if (Objects.equals(status, "SHIPPED")){
+                order.setOrderStatus(OrderStatus.SHIPPED);
 
-            } else if (Objects.equals(status,"Delivered")) {
-                order.setOrderStatus(OrderStatus.Delivered);
+            } else if (Objects.equals(status,"DELIVERED")) {
+                order.setOrderStatus(OrderStatus.DELIVERED);
             }
             return orderRepo.save(order).getOrderDto();
 

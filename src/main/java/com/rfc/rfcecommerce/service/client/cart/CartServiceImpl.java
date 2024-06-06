@@ -32,12 +32,12 @@ public class CartServiceImpl implements ICartService{
     private IProductRepo productRepo;
 
     public ResponseEntity<Object> addProductToCart(AddProductToCart addProductToCart) {
-        Order activeOrder = orderRepo.findByUserIdAndOrderStatus(addProductToCart.getUserId(), OrderStatus.Pending);
+        Order activeOrder = orderRepo.findByUserIdAndOrderStatus(addProductToCart.getUserId(), OrderStatus.PENDING);
 
         if (activeOrder == null) {
             activeOrder = new Order();
             activeOrder.setUser(userRepo.findById(addProductToCart.getUserId()).orElse(null));
-            activeOrder.setOrderStatus(OrderStatus.Pending);
+            activeOrder.setOrderStatus(OrderStatus.PENDING);
             activeOrder = orderRepo.save(activeOrder);
         }
 
@@ -76,7 +76,7 @@ public class CartServiceImpl implements ICartService{
     }
 
     public OrderDto getCartByUserId(Long userId){
-        Order activeOrder = orderRepo.findByUserIdAndOrderStatus(userId, OrderStatus.Pending);
+        Order activeOrder = orderRepo.findByUserIdAndOrderStatus(userId, OrderStatus.PENDING);
         List<CartItemsDto> cartItemsDtoList = activeOrder.getCartItems().stream().map(CartItems::getCartDto).collect(Collectors.toList());
 
         OrderDto orderDto =new OrderDto();
@@ -90,7 +90,7 @@ public class CartServiceImpl implements ICartService{
         return orderDto;
     }
     public OrderDto increaseQuantity(AddProductToCart addProductToCart){
-        Order activeOrder = orderRepo.findByUserIdAndOrderStatus(addProductToCart.getUserId(), OrderStatus.Pending);
+        Order activeOrder = orderRepo.findByUserIdAndOrderStatus(addProductToCart.getUserId(), OrderStatus.PENDING);
         Optional<Product> optionalProduct = productRepo.findById(addProductToCart.getProductId());
         Optional<CartItems> optionalCartItem = cartItemRepo.findByProductIdAndOrderIdAndUserId(
                 addProductToCart.getProductId(),activeOrder.getId(),addProductToCart.getUserId()
@@ -115,7 +115,7 @@ public class CartServiceImpl implements ICartService{
     }
 
     public OrderDto decreaseQuantity(AddProductToCart addProductToCart){
-        Order activeOrder = orderRepo.findByUserIdAndOrderStatus(addProductToCart.getUserId(), OrderStatus.Pending);
+        Order activeOrder = orderRepo.findByUserIdAndOrderStatus(addProductToCart.getUserId(), OrderStatus.PENDING);
         Optional<Product> optionalProduct = productRepo.findById(addProductToCart.getProductId());
         Optional<CartItems> optionalCartItem = cartItemRepo.findByProductIdAndOrderIdAndUserId(
                 addProductToCart.getProductId(),activeOrder.getId(),addProductToCart.getUserId()
@@ -139,13 +139,13 @@ public class CartServiceImpl implements ICartService{
         return  null;
     }
     public OrderDto placeOrder(PlaceOrderDto placeOrderDto) {
-        Order activeOrder = orderRepo.findByUserIdAndOrderStatus(placeOrderDto.getUserId(), OrderStatus.Pending);
+        Order activeOrder = orderRepo.findByUserIdAndOrderStatus(placeOrderDto.getUserId(), OrderStatus.PENDING);
         Optional<User> optionalUser = userRepo.findById(placeOrderDto.getUserId());
         if (optionalUser.isPresent()) {
             activeOrder.setOrderDescption(placeOrderDto.getOrderDescription());
             activeOrder.setAddress(placeOrderDto.getAddress());
             activeOrder.setDate(new Date());
-            activeOrder.setOrderStatus(OrderStatus.Placed);
+            activeOrder.setOrderStatus(OrderStatus.PENDING);
             activeOrder.setTrackingId(UUID.randomUUID());
 
             orderRepo.save(activeOrder);
@@ -155,7 +155,7 @@ public class CartServiceImpl implements ICartService{
             order.setTotalAmount(0L);
             order.setDiscount(0L);
             order.setUser(optionalUser.get());
-            order.setOrderStatus(OrderStatus.Pending);
+            order.setOrderStatus(OrderStatus.PENDING);
             orderRepo.save(order);
             return activeOrder.getOrderDto();
         }
@@ -163,6 +163,6 @@ return null;
     }
 
     public List<OrderDto> getMyPlacedOrders(Long userId){
-        return  orderRepo.findByUserIdAndOrderStatusIn(userId, List.of(OrderStatus.Placed, OrderStatus.Shipped, OrderStatus.Delivered) ).stream().map(Order::getOrderDto).collect(Collectors.toList());
+        return  orderRepo.findByUserIdAndOrderStatusIn(userId, List.of(OrderStatus.PLACED, OrderStatus.SHIPPED, OrderStatus.DELIVERED) ).stream().map(Order::getOrderDto).collect(Collectors.toList());
     }
 }
