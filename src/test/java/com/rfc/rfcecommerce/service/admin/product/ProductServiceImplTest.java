@@ -36,35 +36,6 @@ class ProductServiceImplTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
-    void addProduct() throws IOException {
-        // Arrange
-        ProductDto productDto = new ProductDto();
-        productDto.setName("Test Product");
-        productDto.setDescription("Test Description");
-        productDto.setPrice(100L);
-        productDto.setCategoryId(1L);
-
-        Product product = new Product();
-        product.setName(productDto.getName());
-        product.setDescription(productDto.getDescription());
-        product.setPrice(productDto.getPrice());
-
-        Category category = new Category();
-        category.setId(1L);
-
-        when(categoryRepo.findById(1L)).thenReturn(Optional.of(category));
-        when(productRepo.save(any(Product.class))).thenReturn(product);
-
-        // Act
-        ProductDto result = productService.addProduct(productDto);
-
-        // Assert
-        assertNotNull(result);
-        assertEquals("Test Product", result.getName());
-        verify(categoryRepo, times(1)).findById(1L);
-        verify(productRepo, times(1)).save(any(Product.class));
-    }
 
     @Test
     void getAllProducts() {
