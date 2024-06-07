@@ -96,11 +96,7 @@
                     <version>5.8.0</version> <!-- Version la plus récente de JUnit 5 -->
                     <scope>test</scope>
                 </dependency>
-            <dependency>
-                <artifactId>unlogged-sdk</artifactId>
-                <groupId>video.bug</groupId>
-                <version>0.6.1</version>
-            </dependency>
+
 
 
 
