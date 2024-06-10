@@ -1,6 +1,5 @@
 package com.rfc.rfcecommerce.service.admin.product;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 import com.rfc.rfcecommerce.dto.ProductDto;
@@ -8,14 +7,12 @@ import com.rfc.rfcecommerce.entity.Category;
 import com.rfc.rfcecommerce.entity.Product;
 import com.rfc.rfcecommerce.repository.ICategoryRepo;
 import com.rfc.rfcecommerce.repository.IProductRepo;
-import com.rfc.rfcecommerce.service.admin.product.ProductServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
