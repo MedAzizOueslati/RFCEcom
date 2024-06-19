@@ -1,5 +1,5 @@
 # Utiliser une image de base JDK 17 slim pour exécuter l'application
-FROM openjdk:17-jre-slim
+FROM openjdk:17-slim
 
 # Définir le répertoire de travail dans l'image Docker
 WORKDIR /app
