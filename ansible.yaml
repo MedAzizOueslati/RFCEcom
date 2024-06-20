@@ -11,15 +11,15 @@
 
   tasks:
     - name: Build the Docker image
-      docker_image:
-        build:
-          path: "{{ context_path }}"
-          dockerfile: "{{ dockerfile_path }}"
-        name: "{{ acr_login_server }}/{{ image_name }}"
-        tag: "{{ image_tag }}"
-        state: present
-         vars:
-    ansible_python_interpreter: /bin/python3
+  docker_image:
+    name: "{{ acr_login_server }}/{{ image_name }}"
+    tag: "{{ image_tag }}"
+    path: "{{ context_path }}"
+    dockerfile: "{{ dockerfile_path }}"
+    state: present
+  vars:
+    ansible_python_interpreter: /bin/python3  # Spécifie l'interpréteur Python 3
+
 
     - name: Push the Docker image to ACR
       docker_image:
