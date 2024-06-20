@@ -9,7 +9,7 @@
     dockerfile_path: ./Dockerfile
     context_path: ./app
 
-
+  tasks:
     - name: Build the Docker image
       docker_image:
         name: "{{ acr_login_server }}/{{ image_name }}"
