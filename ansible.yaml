@@ -1,6 +1,6 @@
 ---
 - name: Build and push Docker image to ACR
-  hosts: All
+  hosts: localhost
   vars:
     acr_name: EcomRegistr  # Nom de votre Azure Container Registry
     acr_login_server: EcomRegistr.azurecr.io
