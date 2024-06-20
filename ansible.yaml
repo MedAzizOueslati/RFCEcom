@@ -2,7 +2,7 @@
 - name: Build and push Docker image to ACR
   hosts: localhost
   vars:
-    acr_name: EcomRegistr  # Nom de votre Azure Container Registry
+    acr_name: EcomRegistr  
     acr_login_server: EcomRegistr.azurecr.io
     image_name: backecom
     image_tag: latest
@@ -17,6 +17,8 @@
         path: "{{ context_path }}"
         dockerfile: "{{ dockerfile_path }}"
         state: present
+      vars:
+        ansible_python_interpreter: /bin/python3 
 
     - name: Push the Docker image to ACR
       docker_image:
@@ -24,3 +26,6 @@
         tag: "{{ image_tag }}"
         push: yes
         source: local
+      vars:
+        ansible_python_interpreter: /bin/python3 
+
