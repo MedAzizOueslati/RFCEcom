@@ -2,30 +2,35 @@
 - name: Build and push Docker image to ACR
   hosts: localhost
   vars:
-    acr_name: EcomRegistr  
-    acr_login_server: EcomRegistr.azurecr.io
+    acr_name: EcomRegistr
+    acr_login_server: "{{ acr_name }}.azurecr.io"
     image_name: backecom
     image_tag: latest
     dockerfile_path: ./Dockerfile
     context_path: ./app
+    acr_username: "EcomRegistr"
+    acr_password: "ydYcpFbaLyVmvcFBFxBxuTytQfTO/7Od7zXfEmW/eh+ACRBus9+4"
 
   tasks:
+    - name: Docker login to ACR
+      docker_login:
+        registry_url: "{{ acr_login_server }}"
+        username: "{{ acr_username }}"
+        password: "{{ acr_password }}"
+
     - name: Build the Docker image
       docker_image:
-        name: "{{ acr_login_server }}/{{ image_name }}"
-        tag: "{{ image_tag }}"
+        name: "{{ acr_login_server }}/{{ image_name }}:{{ image_tag }}"
         path: "{{ context_path }}"
         dockerfile: "{{ dockerfile_path }}"
-        state: present
+        source: build
       vars:
-        ansible_python_interpreter: /bin/python3 
+        ansible_python_interpreter: /usr/bin/python3
 
     - name: Push the Docker image to ACR
       docker_image:
-        name: "{{ acr_login_server }}/{{ image_name }}"
-        tag: "{{ image_tag }}"
-        push: yes
+        name: "{{ acr_login_server }}/{{ image_name }}:{{ image_tag }}"
         source: local
+        push: yes
       vars:
-        ansible_python_interpreter: /bin/python3 
-
+        ansible_python_interpreter: /usr/bin/python3
