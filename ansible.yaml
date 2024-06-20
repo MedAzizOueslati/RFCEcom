@@ -10,16 +10,6 @@
     context_path: ./app
 
   tasks:
-    - name: Log in to ACR
-      shell: az acr login --name {{ acr_name }}
-      register: acr_login
-      ignore_errors: yes
-
-    - name: Check ACR login status
-      debug:
-        msg: "ACR login succeeded"
-      when: acr_login.rc == 0
-
     - name: Build the Docker image
       docker_image:
         build:
