@@ -1,23 +1,29 @@
 ---
 - name: Build and push Docker image to ACR
   hosts: localhost
-  connection: local
-  become: true
+  vars:
+    acr_name: EcomRegistr  # Nom de votre Azure Container Registry
+    acr_login_server: EcomRegistr.azurecr.io
+    image_name: backecom
+    image_tag: latest
+    dockerfile_path: ./Dockerfile
+    context_path: ./app
 
   tasks:
+    - name: Build the Docker image
+  docker_image:
+    name: "{{ acr_login_server }}/{{ image_name }}"
+    tag: "{{ image_tag }}"
+    path: "{{ context_path }}"
+    dockerfile: "{{ dockerfile_path }}"
+    state: present
 
 
-    - name: Build Docker image
+
+    - name: Push the Docker image to ACR
       docker_image:
-        path: /app
-        tag: latest
-        buildargs:
-          - ACR_USERNAME=EcomRegistr
-          - ACR_PASSWORD=ydYcpFbaLyVmvcFBFxBxuTytQfTO/7Od7zXfEmW/eh+ACRBus9+4
-          - ACR_NAME=EcomRegistr
-
-    - name: Push Docker image to ACR
-      docker_image:
-        name: EcomRegistr.azurecr.io/ecomback:latest
-        state: pushed
+        name: "{{ acr_login_server }}/{{ image_name }}"
+        tag: "{{ image_tag }}"
+        push: yes
+        source: local
 
