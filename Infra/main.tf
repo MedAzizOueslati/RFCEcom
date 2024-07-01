@@ -1,12 +1,9 @@
 # Définir le fournisseur Azure
 provider "azurerm" {
   features {}
-  /*  use_msi = true
-    subscription_id = "460bc14f-4852-44b0-809b-ce133bada6c4"
-*/
-  skip_provider_registration = true
-
-
+  use_msi = true
+  subscription_id = "460bc14f-4852-44b0-809b-ca6c4"
+  object_id = "9d909205-db22-4faa-af87-54cc824f14d4"
 }
 
 # Utiliser le groupe de ressources existant
