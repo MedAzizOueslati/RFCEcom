@@ -1,6 +1,8 @@
 # Définir le fournisseur Azure
 provider "azurerm" {
   features {}
+    use_msi = true
+
 }
 
 # Utiliser le groupe de ressources existant
