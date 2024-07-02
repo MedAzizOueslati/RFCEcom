@@ -3,11 +3,6 @@ provider "azurerm" {
   features {}
   use_msi = true
   subscription_id = "460bc14f-4852-44b0-809b-ca6c4"
-
-  // Si vous avez besoin de spécifier l'object_id explicitement, utilisez plutôt le bloc service_principal
-  service_principal {
-    object_id = "9d909205-db22-4faa-af87-54cc824f14d4"
-  }
 }
 
 
