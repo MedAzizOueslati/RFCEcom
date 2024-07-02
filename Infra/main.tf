@@ -8,7 +8,7 @@ provider "azurerm" {
 
 # Utiliser le groupe de ressources existant
 data "azurerm_resource_group" "existing" {
-  name = "RFC-Ecom"
+  name = "RFC_Ecom"
 }
 
 # Utiliser le registre de conteneurs Azure existant
