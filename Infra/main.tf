@@ -61,7 +61,6 @@ resource "azurerm_mysql_server" "mysql_instance" {
 
   storage_mb           = 5120
   backup_retention_days = 7
-  geo_redundant_backup = "Disabled"
 
   ssl_enforcement_enabled = true
 
