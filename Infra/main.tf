@@ -55,8 +55,8 @@ resource "azurerm_mysql_flexible_server" "mysql_instance" {
   location            = data.azurerm_resource_group.existing.location
   resource_group_name = data.azurerm_resource_group.existing.name
 
-  administrator_login          = "root"
-  administrator_login_password = ""
+  administrator_login    = "root"
+  administrator_password = ""
 
   sku_name   = "B_Gen5_2"
   storage_mb = 5120
