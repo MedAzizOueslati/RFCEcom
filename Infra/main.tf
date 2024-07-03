@@ -57,7 +57,7 @@ resource "azurerm_mysql_server" "mysql_instance" {
   sku_name            = "B_Gen5_1"
   version             = "8.0.37"
   administrator_login = "root"
-  administrator_login_password = var.mysql_admin_password
+  administrator_login_password = ""
 
   storage_mb           = 5120
   backup_retention_days = 7
