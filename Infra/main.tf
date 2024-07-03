@@ -38,14 +38,31 @@ resource "azurerm_kubernetes_cluster" "main" {
     network_plugin = "azure"
     network_policy = "azure"
   }
+resource "azurerm_mysql_server" "mysql_instance" {
+  name                = "ecom-mysql"
+  location            = data.azurerm_resource_group.existing.location
+  resource_group_name = data.azurerm_resource_group.existing.name
+  sku_name            = "B_Gen5_1"
+  version             = "8.0.37"
+
+  storage_profile {
+    storage_mb            = 5120
+    backup_retention_days = 7
+    geo_redundant_backup  = "Disabled"
+  }
+
+  administrator_login          = "root"
+  administrator_login_password = "" 
+}
+
 
 #   role_based_access_control {
 #     enabled = true
 #   }
 
-#   tags = {
-#     environment = "Development"
-#   }
+   tags = {
+     environment = "EcomRFC"
+   }
 }
 
 # Sortir la configuration kube pour se connecter au cluster AKS
