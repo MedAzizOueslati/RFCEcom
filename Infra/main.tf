@@ -50,12 +50,12 @@ resource "azurerm_kubernetes_cluster" "main" {
    }
 }
 
-resource "azurerm_mysql_server" "example" {
-  name                = "example-mysqlserver"
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
+resource "azurerm_mysql_server" "mysql_instance" {
+  name                = "ecom-mysql"
+  location            = azurerm_resource_group.existing.location
+  resource_group_name = azurerm_resource_group.existing.name
 
-  administrator_login          = "mysqladmin"
+  administrator_login          = "root"
   administrator_login_password = ""
 
   sku_name   = "B_Gen5_2"
@@ -69,3 +69,4 @@ resource "azurerm_mysql_server" "example" {
   public_network_access_enabled     = true
   ssl_enforcement_enabled           = true
   ssl_minimal_tls_version_enforced  = "TLS1_2"
+}
