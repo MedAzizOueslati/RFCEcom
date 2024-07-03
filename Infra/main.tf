@@ -59,7 +59,7 @@ resource "azurerm_mysql_flexible_server" "mysql_instance" {
   version             = "8.0"
 
   administrator_login          = "root"
-  administrator_login_password = var.mysql_admin_password
+  administrator_login_password = ""
 
   storage_profile {
     auto_grow = true  # Optionnel, activé par défaut
@@ -88,8 +88,4 @@ output "kube_config" {
   sensitive = true
 }
 
-variable "mysql_admin_password" {
-  description = "The password for the MySQL admin user"
-  type        = string
-  sensitive   = true
-}
+
