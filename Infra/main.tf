@@ -50,39 +50,22 @@ resource "azurerm_kubernetes_cluster" "main" {
    }
 }
 
-# Créer un serveur MySQL flexible
-resource "azurerm_mysql_flexible_server" "mysql_instance" {
-  name                = "ecom-mysql"
-  location            = data.azurerm_resource_group.existing.location
-  resource_group_name = data.azurerm_resource_group.existing.name
-  sku_name            = "GP_Gen5_2"
-  version             = "8.0"
+resource "azurerm_mysql_server" "example" {
+  name                = "example-mysqlserver"
+  location            = azurerm_resource_group.example.location
+  resource_group_name = azurerm_resource_group.example.name
 
-  administrator_login          = "root"
-  administrator_login_password = var.mysql_admin_password
+  administrator_login          = "mysqladmin"
+  administrator_login_password = ""
 
-  storage_profile {
-    auto_grow = true
-  }
+  sku_name   = "B_Gen5_2"
+  storage_mb = 5120
+  version    = "8.0"
 
-  # SSL Enforcement configuration
-  ssl_enforcement_enabled = true
-  ssl_minimal_tls_version = "TLS1_2"
-
-  # Public network access configuration
-  public_network_access_enabled = true
-
-
-}
-
-# Sortir la configuration kube pour se connecter au cluster AKS
-output "kube_config" {
-  value     = azurerm_kubernetes_cluster.main.kube_config_raw
-  sensitive = true
-}
-
-variable "mysql_admin_password" {
-  description = "The password for the MySQL admin user"
-  type        = string
-  sensitive   = true
-}
+  auto_grow_enabled                 = true
+  backup_retention_days             = 7
+  geo_redundant_backup_enabled      = false
+  infrastructure_encryption_enabled = false
+  public_network_access_enabled     = true
+  ssl_enforcement_enabled           = true
+  ssl_minimal_tls_version_enforced  = "TLS1_2"
