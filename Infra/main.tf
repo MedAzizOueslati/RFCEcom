@@ -52,8 +52,8 @@ resource "azurerm_kubernetes_cluster" "main" {
 
 resource "azurerm_mysql_server" "mysql_instance" {
   name                = "ecom-mysql"
-  location            = azurerm_resource_group.existing.location
-  resource_group_name = azurerm_resource_group.existing.name
+  location            = data.azurerm_resource_group.existing.location
+  resource_group_name = data.azurerm_resource_group.existing.name
 
   administrator_login          = "root"
   administrator_login_password = ""
