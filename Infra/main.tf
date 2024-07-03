@@ -38,6 +38,17 @@ resource "azurerm_kubernetes_cluster" "main" {
     network_plugin = "azure"
     network_policy = "azure"
   }
+
+
+
+#   role_based_access_control {
+#     enabled = true
+#   }
+
+   tags = {
+     environment = "EcomRFC"
+   }
+}
 resource "azurerm_mysql_server" "mysql_instance" {
   name                = "ecom-mysql"
   location            = data.azurerm_resource_group.existing.location
@@ -53,16 +64,6 @@ resource "azurerm_mysql_server" "mysql_instance" {
 
   administrator_login          = "root"
   administrator_login_password = "" 
-}
-
-
-#   role_based_access_control {
-#     enabled = true
-#   }
-
-   tags = {
-     environment = "EcomRFC"
-   }
 }
 
 # Sortir la configuration kube pour se connecter au cluster AKS
