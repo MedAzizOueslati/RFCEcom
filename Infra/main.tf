@@ -49,26 +49,47 @@ resource "azurerm_kubernetes_cluster" "main" {
      environment = "EcomRFC"
    }
 }
-# Créer un serveur MySQL
+
+# Créer un serveur MySQL flexible
 resource "azurerm_mysql_flexible_server" "mysql_instance" {
   name                = "ecom-mysql"
   location            = data.azurerm_resource_group.existing.location
   resource_group_name = data.azurerm_resource_group.existing.name
-  sku_name            = "B_Gen5_1"
+  sku_name            = "GP_Gen5_2"
   version             = "8.0"
-  administrator_login = "root"
-  administrator_login_password = ""
 
-  storage_mb           = 5120
-  backup_retention_days = 7
+  administrator_login          = "root"
+  administrator_login_password = var.mysql_admin_password
 
-  ssl_enforcement_enabled = true
+  storage_profile {
+    auto_grow = true  # Optionnel, activé par défaut
+  }
 
-  public_network_access_enabled = true
+  sku {
+    capacity = 2  # Capacité en vCores, ajustez selon vos besoins
+    tier     = "GeneralPurpose"
+    family   = "Gen5"
+  }
+
+  ssl_enforcement {
+    enabled     = true
+    enforced    = true
+    disabled_on = "2050-01-01"  # Date de désactivation, optionnel
+  }
+
+  public_network_access {
+    enabled = true
+  }
 }
 
 # Sortir la configuration kube pour se connecter au cluster AKS
 output "kube_config" {
   value     = azurerm_kubernetes_cluster.main.kube_config_raw
   sensitive = true
+}
+
+variable "mysql_admin_password" {
+  description = "The password for the MySQL admin user"
+  type        = string
+  sensitive   = true
 }
