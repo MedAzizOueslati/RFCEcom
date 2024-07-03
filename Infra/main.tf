@@ -50,7 +50,7 @@ resource "azurerm_kubernetes_cluster" "main" {
    }
 }
 
-resource "azurerm_mysql_server" "mysql_instance" {
+resource "azurerm_mysql_flexible_server" "mysql_instance" {
   name                = "ecom-mysql"
   location            = data.azurerm_resource_group.existing.location
   resource_group_name = data.azurerm_resource_group.existing.name
