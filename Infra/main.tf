@@ -50,12 +50,12 @@ resource "azurerm_kubernetes_cluster" "main" {
    }
 }
 # Créer un serveur MySQL
-resource "azurerm_mysql_server" "mysql_instance" {
+resource "azurerm_mysql_flexible_server" "mysql_instance" {
   name                = "ecom-mysql"
   location            = data.azurerm_resource_group.existing.location
   resource_group_name = data.azurerm_resource_group.existing.name
   sku_name            = "B_Gen5_1"
-  version             = "8.0.37"
+  version             = "8.0"
   administrator_login = "root"
   administrator_login_password = ""
 
