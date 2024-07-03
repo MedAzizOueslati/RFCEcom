@@ -49,6 +49,7 @@ resource "azurerm_kubernetes_cluster" "main" {
      environment = "EcomRFC"
    }
 }
+# Créer un serveur MySQL
 resource "azurerm_mysql_server" "mysql_instance" {
   name                = "ecom-mysql"
   location            = data.azurerm_resource_group.existing.location
@@ -56,14 +57,19 @@ resource "azurerm_mysql_server" "mysql_instance" {
   sku_name            = "B_Gen5_1"
   version             = "8.0.37"
   administrator_login = "root"
-  administrator_login_password = ""
+  administrator_login_password = var.mysql_admin_password
 
-  storage_profile {
-    storage_mb            = 5120
-    backup_retention_days = 7
-    geo_redundant_backup  = "Disabled"
-  }
+  storage_mb           = 5120
+  backup_retention_days = 7
+  geo_redundant_backup = "Disabled"
 
   ssl_enforcement_enabled = true
+
   public_network_access_enabled = true
+}
+
+# Sortir la configuration kube pour se connecter au cluster AKS
+output "kube_config" {
+  value     = azurerm_kubernetes_cluster.main.kube_config_raw
+  sensitive = true
 }
