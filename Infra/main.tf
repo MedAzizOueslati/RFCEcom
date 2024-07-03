@@ -59,27 +59,20 @@ resource "azurerm_mysql_flexible_server" "mysql_instance" {
   version             = "8.0"
 
   administrator_login          = "root"
-  administrator_login_password = ""
+  administrator_login_password = var.mysql_admin_password
 
   storage_profile {
-    auto_grow = true  # Optionnel, activé par défaut
+    auto_grow = true
   }
 
-  sku {
-    capacity = 2  # Capacité en vCores, ajustez selon vos besoins
-    tier     = "GeneralPurpose"
-    family   = "Gen5"
-  }
+  # SSL Enforcement configuration
+  ssl_enforcement_enabled = true
+  ssl_minimal_tls_version = "TLS1_2"
 
-  ssl_enforcement {
-    enabled     = true
-    enforced    = true
-    disabled_on = "2050-01-01"  # Date de désactivation, optionnel
-  }
+  # Public network access configuration
+  public_network_access_enabled = true
 
-  public_network_access {
-    enabled = true
-  }
+
 }
 
 # Sortir la configuration kube pour se connecter au cluster AKS
@@ -88,4 +81,8 @@ output "kube_config" {
   sensitive = true
 }
 
-
+variable "mysql_admin_password" {
+  description = "The password for the MySQL admin user"
+  type        = string
+  sensitive   = true
+}
