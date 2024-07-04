@@ -50,23 +50,70 @@ resource "azurerm_kubernetes_cluster" "main" {
    }
 }
 
-resource "azurerm_mysql_flexible_server" "mysql_instance" {
-  name                = "ecom-mysql"
+# Définir le réseau virtuel
+resource "azurerm_virtual_network" "example" {
+  name                = "ecom-vnet"
   location            = data.azurerm_resource_group.existing.location
   resource_group_name = data.azurerm_resource_group.existing.name
+  address_space       = ["10.0.0.0/16"]
+}
 
-  administrator_login    = "root"
-  administrator_password = ""
+# Définir le sous-réseau
+resource "azurerm_subnet" "example" {
+  name                 = "ecom-subnet"
+  resource_group_name  = data.azurerm_resource_group.existing.name
+  virtual_network_name = azurerm_virtual_network.example.name
+  address_prefixes     = ["10.0.2.0/24"]
+  service_endpoints    = ["Microsoft.Storage"]
+  delegation {
+    name = "fs"
+    service_delegation {
+      name = "Microsoft.DBforMySQL/flexibleServers"
+      actions = [
+        "Microsoft.Network/virtualNetworks/subnets/join/action",
+      ]
+    }
+  }
+}
 
-  sku_name   = "B_Gen5_2"
-  storage_mb = 5120
-  version    = "8.0"
+# Définir la zone DNS privée
+resource "azurerm_private_dns_zone" "example" {
+  name                = "ecom.mysql.database.azure.com"
+  resource_group_name = data.azurerm_resource_group.existing.name
+}
 
-  auto_grow_enabled                 = true
-  backup_retention_days             = 7
-  geo_redundant_backup_enabled      = false
-  infrastructure_encryption_enabled = false
-  public_network_access_enabled     = true
-  ssl_enforcement_enabled           = true
-  ssl_minimal_tls_version_enforced  = "TLS1_2"
+# Lier la zone DNS privée au réseau virtuel
+resource "azurerm_private_dns_zone_virtual_network_link" "example" {
+  name                  = "ecomVnetZoneLink"
+  private_dns_zone_name = azurerm_private_dns_zone.example.name
+  virtual_network_id    = azurerm_virtual_network.example.id
+  resource_group_name   = data.azurerm_resource_group.existing.name
+}
+
+# Créer le serveur MySQL flexible
+resource "azurerm_mysql_flexible_server" "example" {
+  name                   = "ecom-fs"
+  resource_group_name    = data.azurerm_resource_group.existing.name
+  location               = data.azurerm_resource_group.existing.location
+  administrator_login    = "mysqladmin"
+  administrator_password = var.mysql_admin_password # Utilisez la variable pour le mot de passe admin
+  backup_retention_days  = 7
+  delegated_subnet_id    = azurerm_subnet.example.id
+  private_dns_zone_id    = azurerm_private_dns_zone.example.id
+  sku_name               = "GP_Standard_D2ds_v4"
+
+  depends_on = [azurerm_private_dns_zone_virtual_network_link.example]
+}
+
+# Variable pour le mot de passe admin MySQL
+variable "mysql_admin_password" {
+  description = "Le mot de passe pour l'utilisateur administrateur MySQL"
+  type        = string
+  sensitive   = true
+}
+
+# Sortie de la configuration kube pour se connecter au cluster AKS
+output "kube_config" {
+  value     = azurerm_kubernetes_cluster.main.kube_config_raw
+  sensitive = true
 }
