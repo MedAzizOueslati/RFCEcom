@@ -101,6 +101,8 @@ resource "azurerm_mysql_flexible_server" "example" {
   delegated_subnet_id    = azurerm_subnet.example.id
   private_dns_zone_id    = azurerm_private_dns_zone.example.id
   sku_name               = "GP_Standard_D2ds_v4"
+  zone                   = "1"  # Set the zone only at the time of creation
+
 
   depends_on = [azurerm_private_dns_zone_virtual_network_link.example]
 }
