@@ -95,8 +95,8 @@ resource "azurerm_mysql_flexible_server" "example" {
   name                   = "ecom-fs"
   resource_group_name    = data.azurerm_resource_group.existing.name
   location               = data.azurerm_resource_group.existing.location
-  administrator_login    = "mysqladmin"
-  administrator_password = var.mysql_admin_password # Utilisez la variable pour le mot de passe admin
+  administrator_login    = "root"
+  administrator_password = ""
   backup_retention_days  = 7
   delegated_subnet_id    = azurerm_subnet.example.id
   private_dns_zone_id    = azurerm_private_dns_zone.example.id
@@ -105,12 +105,7 @@ resource "azurerm_mysql_flexible_server" "example" {
   depends_on = [azurerm_private_dns_zone_virtual_network_link.example]
 }
 
-# Variable pour le mot de passe admin MySQL
-variable "mysql_admin_password" {
-  description = "Le mot de passe pour l'utilisateur administrateur MySQL"
-  type        = string
-  sensitive   = true
-}
+
 
 # Sortie de la configuration kube pour se connecter au cluster AKS
 output "kube_config" {
