@@ -96,7 +96,7 @@ resource "azurerm_mysql_flexible_server" "example" {
   resource_group_name    = data.azurerm_resource_group.existing.name
   location               = data.azurerm_resource_group.existing.location
   administrator_login    = "mysqladmin"
-  administrator_password = "mysqladmin"
+  administrator_password = "Mysqladmin123."
   backup_retention_days  = 7
   delegated_subnet_id    = azurerm_subnet.example.id
   private_dns_zone_id    = azurerm_private_dns_zone.example.id
