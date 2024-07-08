@@ -20,7 +20,7 @@
 
     - name: Build the Docker image
       docker_image:
-        name: "{{ acr_login_server }}/{{ image_name }}:{{ image_tag }}"
+        name: ecomregistr.azurecr.io/backend:latest 
         path: "{{ context_path }}"
         dockerfile: "{{ dockerfile_path }}"
         source: build
