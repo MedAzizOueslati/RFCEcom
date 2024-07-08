@@ -112,5 +112,5 @@ resource "azurerm_mysql_flexible_server" "example" {
 # Sortie de la configuration kube pour se connecter au cluster AKS
 output "kube_config" {
   value     = azurerm_kubernetes_cluster.main.kube_config_raw
-  sensitive = true
+  sensitive = false
 }
