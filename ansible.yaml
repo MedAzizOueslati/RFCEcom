@@ -29,7 +29,7 @@
 
     - name: Push the Docker image to ACR
       docker_image:
-        name: "{{ acr_login_server }}/{{ image_name }}:{{ image_tag }}"
+        name: ecomregistr.azurecr.io/backend:latest 
         source: local
         push: yes
       vars:
