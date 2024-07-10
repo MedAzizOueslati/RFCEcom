@@ -18,14 +18,28 @@
         username: "{{ acr_username }}"
         password: "{{ acr_password }}"
 
+    # - name: Build the Docker image
+    #   community.docker.docker_image:
+    #     name: ecomregistr.azurecr.io/backend:latest 
+    #     path: "{{ context_path }}"
+    #     dockerfile: "{{ dockerfile_path }}"
+    #     source: build
+    #   vars:
+    #     ansible_python_interpreter: /usr/bin/python3
+
     - name: Build the Docker image
       community.docker.docker_image:
-        name: ecomregistr.azurecr.io/backend:latest 
-        path: "{{ context_path }}"
-        dockerfile: "{{ dockerfile_path }}"
-        source: build
-      vars:
-        ansible_python_interpreter: /usr/bin/python3
+          name: ecomregistr.azurecr.io/backend:latest
+          path: /var/lib/jenkins/workspace/backend_Pipeline
+          dockerfile: ./Dockerfile
+          build: yes  # Ensure this parameter is included to indicate building from Dockerfile
+          source: build
+          state: present
+          push: false
+          force_tag: true
+      become: yes
+      become_user: root
+
 
     - name: Push the Docker image to ACR
       docker_image:
