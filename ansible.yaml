@@ -6,7 +6,7 @@
     acr_login_server: "{{ acr_name }}.azurecr.io"
     image_name: backecom
     image_tag: latest
-    dockerfile_path: /RFCEcom/Dockerfile
+    dockerfile_path: ./Dockerfile
     context_path: ./
     acr_username: "EcomRegistr"
     acr_password: "ydYcpFbaLyVmvcFBFxBxuTytQfTO/7Od7zXfEmW/eh+ACRBus9+4"
