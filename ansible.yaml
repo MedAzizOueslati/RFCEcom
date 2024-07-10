@@ -24,10 +24,11 @@
         name: "{{ acr_login_server }}/{{ image_name }}:{{ image_tag }}"
         path: "{{ context_path }}"
         dockerfile: "{{ dockerfile_path }}"
-        source: build
+        build:
+          pull: yes
+          force_tag: yes
 
     - name: Push the Docker image to ACR
       community.docker.docker_image:
         name: "{{ acr_login_server }}/{{ image_name }}:{{ image_tag }}"
-        source: local
         push: yes
