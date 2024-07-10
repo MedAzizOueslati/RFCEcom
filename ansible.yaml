@@ -19,7 +19,7 @@
         password: "{{ acr_password }}"
 
     - name: Build the Docker image
-      docker_image:
+        community.docker.docker_image:
         name: ecomregistr.azurecr.io/backend:latest 
         path: "{{ context_path }}"
         dockerfile: "{{ dockerfile_path }}"
