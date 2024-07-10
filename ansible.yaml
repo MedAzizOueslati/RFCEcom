@@ -9,7 +9,7 @@
     image_name: backend
     image_tag: latest
     dockerfile_path: ./Dockerfile
-    context_path: /var/lib/jenkins/workspace/backend_Pipeline
+    context_path: .
 
   tasks:
     - name: Docker login to ACR
