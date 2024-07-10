@@ -7,7 +7,7 @@
     image_name: backecom
     image_tag: latest
     dockerfile_path: ./Dockerfile
-    context_path: ./
+    context_path: ./RFCEcom
     acr_username: "EcomRegistr"
     acr_password: "ydYcpFbaLyVmvcFBFxBxuTytQfTO/7Od7zXfEmW/eh+ACRBus9+4"
 
