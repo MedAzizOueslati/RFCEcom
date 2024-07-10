@@ -42,7 +42,7 @@
 
 
     - name: Push the Docker image to ACR
-      docker_image:
+      community.docker.docker_image:
         name: ecomregistr.azurecr.io/backend:latest 
         source: local
         push: yes
