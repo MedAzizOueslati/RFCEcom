@@ -4,13 +4,13 @@
   vars:
     acr_login_server: "ecomregistr.azurecr.io"
     acr_username: "EcomRegistr"
-    acr_password: "your_acr_password"
+
     docker_image_name: "backeom"
     workspace_path: .
     acr_name: EcomRegistr
-    acr_login_server: "{{ acr_name }}.azurecr.io"
+    acr_login_server: "EcomRegistr.azurecr.io"
     dockerfile_path: ./Dockerfile
-    acr_username: "EcomRegistr"
+
     acr_password: "ydYcpFbaLyVmvcFBFxBxuTytQfTO/7Od7zXfEmW/eh+ACRBus9+4"
 
 - name: Build and push Docker image to ACR
