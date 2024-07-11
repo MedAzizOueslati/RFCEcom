@@ -7,7 +7,7 @@
         KUBECONFIG: "{{ playbook_dir }}/kubeconfig"
 
     - name: Deploy backend
-      kubernetes.core:
+      kubernetes.core.k8s:
         state: present
         definition: 
           apiVersion: apps/v1
@@ -41,7 +41,7 @@
                         key: MYSQL_PASSWORD
 
     - name: Deploy frontend
-      kubernetes.core:
+      kubernetes.core.k8s:
         state: present
         definition: 
           apiVersion: apps/v1
