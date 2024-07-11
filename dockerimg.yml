@@ -13,27 +13,41 @@
 
     acr_password: "ydYcpFbaLyVmvcFBFxBxuTytQfTO/7Od7zXfEmW/eh+ACRBus9+4"
 
-- name: Build and push Docker image to ACR
-  hosts: localhost
   tasks:
     - name: Docker login to ACR
-      community.docker.docker_login:
-        registry_url: "{{ acr_login_server }}"
-        username: "{{ acr_username }}"
-        password: "{{ acr_password }}"
-        reauthorize: yes
+      command: >
+        az acr login --name {{ acr_login_server }} --username {{ acr_name }} --password {{ acr_password }}
+      register: login_output
 
-    - name: Build the Docker image
-      community.docker.docker_image:
-        name: "{{ acr_login_server }}/{{ docker_image_name }}"
-        tag: latest
-        path: "{{ workspace_path }}"
-        dockerfile: Dockerfile
-        state: present
-        source: build
+    - name: Check Docker login output
+      debug:
+        var: login_output
 
-    - name: Push the Docker image to ACR
-      community.docker.docker_image:
-        name: "{{ acr_login_server }}/{{ docker_image_name }}"
-        tag: latest
-        push: yes
+    - name: Build Docker image
+      command: >
+        docker build -t backecom:latest .
+      args:
+        chdir: ./
+      register: build_output
+
+    - name: Check Docker build output
+      debug:
+        var: build_output
+
+    - name: Tag Docker image
+      command: >
+        docker tag backecom:latest {{ acr_login_server }}/backecom:latest
+      register: tag_output
+
+    - name: Check Docker tag output
+      debug:
+        var: tag_output
+
+    - name: Push Docker image to ACR
+      command: >
+        docker push {{ acr_login_server }}/backecom:latest
+      register: push_output
+
+    - name: Check Docker push output
+      debug:
+        var: push_output
