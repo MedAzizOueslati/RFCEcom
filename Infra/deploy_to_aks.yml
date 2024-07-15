@@ -1,59 +1,69 @@
-- name: Deploy backend
-  kubernetes.core.k8s:
-    state: present
-    definition: 
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
-        name: backend-deployment
-        namespace: ecommerceRFC  
-      spec:
-        replicas: 2
-        selector:
-          matchLabels:
-            app: backend
-        template:
-          metadata:
-            labels:
-              app: backend
-          spec:
-            containers:
-            - name: backend
-              image: EcomRegistr.azurecr.io/backend:latest
-              ports:
-              - containerPort: 8080
-              env:
-              - name: MYSQL_HOST
-                value: "ecom-fs.mysql.database.azure.com"
-              - name: MYSQL_USER
-                value: "mysqladmin"
-              - name: MYSQL_PASSWORD
-                valueFrom:
-                  secretKeyRef:
-                    name: mysql-secrets
-                    key: MYSQL_PASSWORD
+---
+- name: Deploy to AKS
+  hosts: localhost
+  tasks:
+    - name: Set KUBECONFIG environment variable
+      ansible.builtin.set_fact:
+        KUBECONFIG: "{{ playbook_dir }}/kubeconfig"
 
-- name: Deploy frontend
-  kubernetes.core.k8s:
-    state: present
-    definition: 
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
-        name: frontend-deployment
-        namespace: ecommerceRFC  
-      spec:
-        replicas: 2
-        selector:
-          matchLabels:
-            app: frontend
-        template:
+    - name: Deploy backend
+      kubernetes.core.k8s:
+        state: present
+        definition: 
+          apiVersion: apps/v1
+          kind: Deployment
           metadata:
-            labels:
-              app: frontend
+            name: backend-deployment
+            namespace: default  
+
           spec:
-            containers:
-            - name: frontend
-              image: EcomRegistr.azurecr.io/frontend:latest
-              ports:
-              - containerPort: 80
+            replicas: 2
+            selector:
+              matchLabels:
+                app: backend
+            template:
+              metadata:
+                labels:
+                  app: backend
+              spec:
+                containers:
+                - name: backend
+                  image: EcomRegistr.azurecr.io/backend:latest
+                  ports:
+                  - containerPort: 8080
+                  env:
+                  - name: MYSQL_HOST
+                    value: "ecom-fs.mysql.database.azure.com"
+                  - name: MYSQL_USER
+                    value: "mysqladmin"
+                  - name: MYSQL_PASSWORD
+                    valueFrom:
+                      secretKeyRef:
+                        name: mysql-secrets
+                        key: MYSQL_PASSWORD
+
+    - name: Deploy frontend
+      kubernetes.core.k8s:
+        state: present
+        definition: 
+          apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: frontend-deployment
+            namespace: default 
+
+          spec:
+            replicas: 2
+            selector:
+              matchLabels:
+                app: frontend
+            template:
+              metadata:
+                labels:
+                  app: frontend
+              spec:
+                containers:
+                - name: frontend
+                  image: EcomRegistr.azurecr.io/frontend:latest
+                  ports:
+                  - containerPort: 80  # NGINX usually listens on port 80
