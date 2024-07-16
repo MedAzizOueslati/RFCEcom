@@ -26,9 +26,11 @@
                 labels:
                   app: backend
               spec:
+                imagePullSecrets:
+                - name: acr-auth
                 containers:
                 - name: backend
-                  image: ecomregistr.azurecr.io/backecom:latest
+                  image: EcomRegistr.azurecr.io/backecom:latest
                   ports:
                   - containerPort: 8080
                   env:
@@ -41,8 +43,7 @@
                       secretKeyRef:
                         name: mysql-secrets
                         key: MYSQL_PASSWORD
-                imagePullSecrets:
-                  - name: acr-auth
+
     - name: Deploy frontend
       kubernetes.core.k8s:
         state: present
@@ -63,8 +64,10 @@
                 labels:
                   app: frontend
               spec:
+                imagePullSecrets:
+                - name: acr-auth
                 containers:
                 - name: frontend
-                  image: ecomregistr.azurecr.io/fronecom:latest
+                  image: EcomRegistr.azurecr.io/fronecom:latest
                   ports:
                   - containerPort: 80  # NGINX usually listens on port 80
