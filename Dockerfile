@@ -8,7 +8,7 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y curl
 
 # Télécharger le fichier JAR depuis Nexus
-RUN curl -u admin:nexus -O http://10.0.0.4:8081/repository/maven-snapshots/com/rfc/RFCEcommerce/0.0.1-SNAPSHOT/RFCEcommerce-0.0.1-20240716.115740-93.jar
+RUN curl -u admin:nexus -O http://10.0.0.4:8081/repository/maven-snapshots/com/rfc/RFCEcommerce/0.0.1-SNAPSHOT/RFCEcommerce-0.0.1-SNAPSHOT.jar
 
 # Supprimer curl pour réduire la taille de l'image et nettoyer le cache
 RUN apt-get remove -y curl && apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -17,4 +17,4 @@ RUN apt-get remove -y curl && apt-get clean && rm -rf /var/lib/apt/lists/*
 EXPOSE 8089
 
 # Définir la commande par défaut pour exécuter l'application
-CMD ["java", "-jar", "RFCEcommerce-0.0.1-20240716.115740-93.jar"]
+CMD ["java", "-jar", "RFCEcommerce-0.0.1-SNAPSHOT.jar"]
