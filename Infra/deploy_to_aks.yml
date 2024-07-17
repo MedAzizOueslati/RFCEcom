@@ -33,6 +33,16 @@
                   image: EcomRegistr.azurecr.io/backecom:latest
                   ports:
                   - containerPort: 8080
+                env:
+                - name: MYSQL_HOST
+                  value: "ecom-fs.mysql.database.azure.com"
+                - name: MYSQL_USER
+                  value: "mysqladmin"
+                - name: MYSQL_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: mysql-secrets
+                      key: MYSQL_PASSWORD
 
 
     - name: Deploy frontend
