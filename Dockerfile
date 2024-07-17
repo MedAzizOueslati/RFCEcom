@@ -15,4 +15,4 @@ RUN curl -u admin:nexus -O http://10.0.0.4:8081/repository/maven-snapshots/com/r
 EXPOSE 8089
 
 # Définir la commande par défaut pour exécuter l'application
-CMD ["java", "-jar", "RFCEcommerce-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "0.0.1-SNAPSHOT.jar"]
