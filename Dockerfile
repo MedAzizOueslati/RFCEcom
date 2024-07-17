@@ -8,11 +8,11 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y curl
 
 # Télécharger le fichier JAR depuis Nexus
-RUN curl -u admin:nexus -O http://10.0.0.4:8081/repository/maven-snapshots/com/rfc/RFCEcommerce/0.0.1-SNAPSHOT/RFCEcommerce-0.0.1-20240717.104547-100.jar
+RUN curl -u admin:nexus -O http://10.0.0.4:8081/repository/maven-snapshots/com/rfc/RFCEcommerce/0.0.1-SNAPSHOT/RFCEcommerce-0.0.1-SNAPSHOT.jar
 
 
 # Exposer le port sur lequel l'application écoute
 EXPOSE 8089
 
 # Définir la commande par défaut pour exécuter l'application
-CMD ["java", "-jar", "RFCEcommerce-0.0.1-20240717.104547-100.jar"]
+CMD ["java", "-jar", "RFCEcommerce-0.0.1-SNAPSHOT.jar"]
