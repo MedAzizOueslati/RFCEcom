@@ -34,31 +34,29 @@
                   ports:
                   - containerPort: 8080
 
-
-    - name: Deploy frontend
-      kubernetes.core.k8s:
-        state: present
-        definition: 
-          apiVersion: apps/v1
-          kind: Deployment
+- name: Deploy frontend
+  kubernetes.core.k8s:
+    state: present
+    definition: 
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: frontend-deployment
+        namespace: default
+      spec:
+        replicas: 2
+        selector:
+          matchLabels:
+            app: frontend
+        template:
           metadata:
-            name: frontend-deployment
-            namespace: default 
-
+            labels:
+              app: frontend
           spec:
-            replicas: 2
-            selector:
-              matchLabels:
-                app: frontend
-            template:
-              metadata:
-                labels:
-                  app: frontend
-              spec:
-                imagePullSecrets:
-                - name: acr-auth
-                containers:
-                - name: frontend
-                  image: EcomRegistr.azurecr.io/fronecom:latest
-                  ports:
-                  - containerPort: 80  # NGINX usually listens on port 80
+            containers:
+            - name: frontend
+              image: EcomRegistr.azurecr.io/fronecom:latest
+              ports:
+              - containerPort: 80  # NGINX usually listens on port 80
+            imagePullSecrets:
+            - name: acr-auth
