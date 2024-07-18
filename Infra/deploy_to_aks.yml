@@ -77,31 +77,41 @@
                 imagePullSecrets:
                 - name: acr-auth
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: backend-service
-  namespace: default
-spec:
-  selector:
-    app: backend
-  ports:
-    - protocol: TCP
-      port: 8089
-      targetPort: 8089
-  type: LoadBalancer
+- name: Deploy Services on Kubernetes
+  hosts: localhost
+  tasks:
+    - name: Deploy backend-service
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: v1
+          kind: Service
+          metadata:
+            name: backend-service
+            namespace: default
+          spec:
+            selector:
+              app: backend
+            ports:
+              - protocol: TCP
+                port: 8089
+                targetPort: 8089
+            type: LoadBalancer
 
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: frontend-service
-  namespace: default
-spec:
-  selector:
-    app: frontend
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
-  type: LoadBalancer
+    - name: Deploy frontend-service
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: v1
+          kind: Service
+          metadata:
+            name: frontend-service
+            namespace: default
+          spec:
+            selector:
+              app: frontend
+            ports:
+              - protocol: TCP
+                port: 80
+                targetPort: 80
+            type: LoadBalancer
