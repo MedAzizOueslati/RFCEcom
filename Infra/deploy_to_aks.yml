@@ -76,7 +76,7 @@
                   - containerPort: 80  # NGINX usually listens on port 80
                 imagePullSecrets:
                 - name: acr-auth
----
+
 - name: Deploy Services on Kubernetes
   hosts: localhost
   tasks:
