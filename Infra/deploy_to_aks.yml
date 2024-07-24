@@ -96,7 +96,7 @@
               - protocol: TCP
                 port: 8089
                 targetPort: 8089
-            type: LoadBalancer
+            type: ClusterIP
 
     - name: Deploy frontend-service
       kubernetes.core.k8s:
@@ -114,4 +114,4 @@
               - protocol: TCP
                 port: 80
                 targetPort: 80
-            type: LoadBalancer
+            type: ClusterIP
