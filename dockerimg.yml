@@ -7,7 +7,7 @@
 
     docker_image_name: "backeom"
     workspace_path: .
-    acr_name: EcomRegistr
+    acr_name: ecomregistr
     acr_login_server: "EcomRegistr.azurecr.io"
     dockerfile_path: ./Dockerfile
 
