@@ -126,7 +126,11 @@
             </configuration>
         </plugin>
 
-
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.22.2</version>
+        </plugin>
 
                  <plugin>
             <groupId>org.jacoco</groupId>
@@ -147,14 +151,7 @@
                 </execution>
             </executions>
         </plugin>
-                                <plugin>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.12.4</version>
-                    <configuration>
-                        <useFile>true</useFile>
-                    </configuration>
-                </plugin> 
-            </plugins>
+
         </build>
         
 <!-- Deploy to Nexus -->
