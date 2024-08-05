@@ -19,7 +19,7 @@ data "azurerm_container_registry" "existing" {
 
 # Créer un cluster Kubernetes (AKS)
 resource "azurerm_kubernetes_cluster" "main" {
-  name                = "EcomClusterRFC"
+  name                = "EcomCluster"
   location            = data.azurerm_resource_group.existing.location
   resource_group_name = data.azurerm_resource_group.existing.name
   dns_prefix          = "myEcomclusterRFC"
