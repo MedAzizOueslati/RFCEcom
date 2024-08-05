@@ -5,7 +5,7 @@
     - name: Get AKS Cluster Info
       azure.azcollection.azure_rm_aks_info:
         resource_group: RFC_Ecom  # Remplacez par votre groupe de ressources AKS
-        name: EcomCluster  # Remplacez par le nom de votre cluster AKS
+        name: EcomClusterRFC  # Remplacez par le nom de votre cluster AKS
       register: aks_info
 
     - debug:
