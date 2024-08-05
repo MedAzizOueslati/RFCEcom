@@ -22,7 +22,7 @@ resource "azurerm_kubernetes_cluster" "main" {
   name                = "EcomClusterRFC"
   location            = data.azurerm_resource_group.existing.location
   resource_group_name = data.azurerm_resource_group.existing.name
-  dns_prefix          = "myEcomcluster"
+  dns_prefix          = "myEcomclusterRFC"
 
   default_node_pool {
     name       = "default"
