@@ -11,7 +11,7 @@
         ANSIBLE_PYTHON_INTERPRETER: /usr/bin/python3
 
     - name: Deploy backend
-      community.kubernetes.k8s:
+      kubernetes.core.k8s:
         state: present
         definition: 
           apiVersion: apps/v1
@@ -55,7 +55,7 @@
 
 
     - name: Deploy frontend
-      community.kubernetes.k8s:
+      kubernetes.core.k8s:
         state: present
         definition: 
           apiVersion: apps/v1
@@ -86,7 +86,7 @@
   hosts: localhost
   tasks:
     - name: Deploy backend-service
-      community.kubernetes.k8s:
+      kubernetes.core.k8s:
         state: present
         definition:
           apiVersion: v1
@@ -104,7 +104,7 @@
             type: ClusterIP
 
     - name: Deploy frontend-service
-      community.kubernetes.k8s:
+      kubernetes.core.k8s:
         state: present
         definition:
           apiVersion: v1
