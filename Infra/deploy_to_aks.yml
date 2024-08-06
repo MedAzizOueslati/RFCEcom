@@ -19,8 +19,7 @@
           metadata:
             name: backend-deployment
             namespace: default
-        environment:
-        ANSIBLE_PYTHON_INTERPRETER: /usr/bin/python3
+
 
           spec:
             replicas: 2
