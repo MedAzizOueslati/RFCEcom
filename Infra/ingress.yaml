@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: myapp-ingress-RFC
+  name: myapp-ingress-rfc
   namespace: default
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
