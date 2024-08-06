@@ -7,7 +7,7 @@
         KUBECONFIG: "{{ playbook_dir }}/kubeconfig"
 
     - name: Deploy backend
-      kubernetes.core.k8s:
+      community.kubernetes.k8s:
         state: present
         definition: 
           apiVersion: apps/v1
@@ -50,7 +50,7 @@
 
 
     - name: Deploy frontend
-      kubernetes.core.k8s:
+      community.kubernetes.k8s:
         state: present
         definition: 
           apiVersion: apps/v1
@@ -81,7 +81,7 @@
   hosts: localhost
   tasks:
     - name: Deploy backend-service
-      kubernetes.core.k8s:
+      community.kubernetes.k8s:
         state: present
         definition:
           apiVersion: v1
@@ -99,7 +99,7 @@
             type: ClusterIP
 
     - name: Deploy frontend-service
-      kubernetes.core.k8s:
+      community.kubernetes.k8s:
         state: present
         definition:
           apiVersion: v1
