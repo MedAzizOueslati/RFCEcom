@@ -12,6 +12,7 @@
 
     - name: Deploy backend
       kubernetes.core.k8s:
+        kubeconfig: /var/lib/jenkins/.kube/config
         state: present
         definition: 
           apiVersion: apps/v1
@@ -56,6 +57,7 @@
 
     - name: Deploy frontend
       kubernetes.core.k8s:
+        kubeconfig: /var/lib/jenkins/.kube/config
         state: present
         definition: 
           apiVersion: apps/v1
@@ -87,6 +89,7 @@
   tasks:
     - name: Deploy backend-service
       kubernetes.core.k8s:
+        kubeconfig: /var/lib/jenkins/.kube/config
         state: present
         definition:
           apiVersion: v1
@@ -105,6 +108,7 @@
 
     - name: Deploy frontend-service
       kubernetes.core.k8s:
+        kubeconfig: /var/lib/jenkins/.kube/config
         state: present
         definition:
           apiVersion: v1
