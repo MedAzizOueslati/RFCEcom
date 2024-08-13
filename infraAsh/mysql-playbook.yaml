@@ -1,0 +1,15 @@
+---
+- name: Deploy MySQL on Kubernetes
+  hosts: localhost
+  tasks:
+    - name: Apply MySQL Persistent Volume (PV)
+      k8s:
+        kubeconfig: /var/lib/jenkins/kubeconfig
+        state: present
+        definition: "{{ lookup('file', 'mysql-pv.yaml') }}"
+
+    - name: Apply MySQL Deployment and Service
+      k8s:
+        kubeconfig: /var/lib/jenkins/kubeconfig
+        state: present
+        definition: "{{ lookup('file', 'mysql-deployment.yaml') }}"
