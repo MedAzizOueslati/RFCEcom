@@ -3,7 +3,7 @@
   hosts: localhost
   vars:
     ansible_python_interpreter: /usr/bin/python3
-    kubeconfig_path: "/home/mohamedaziz.ouesleti/kubeconfig"
+    kubeconfig_path: "/var/lib/jenkins/kubeconfig"
   tasks:
     - name: Set KUBECONFIG environment variable
       ansible.builtin.set_fact:
