@@ -1,14 +1,4 @@
-[local]
-vm ansible_host=20.82.132.150 ansible_user=jenkins
-
-[pfeVM]
-pfeVM ansible_host=102.141.206.44 ansible_user=jenkins
-
-[k8s-master]
-k8s-master ansible_host=102.141.206.57 ansible_user=jenkins
-
-[k8s-worker]
-k8s-worker ansible_host=10.2.2.4 ansible_user=jenkins
-
-[all:vars]
-ansible_ssh_private_key_file=~/.ssh/id_rsa
+all:
+  hosts:
+    localhost:
+      ansible_connection: local
