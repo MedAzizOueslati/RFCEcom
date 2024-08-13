@@ -15,6 +15,7 @@
       kubernetes.core.k8s:
         kubeconfig: "{{ kubeconfig_path }}"
         state: present
+        verify_ssl: no
         definition:
           apiVersion: apps/v1
           kind: Deployment
