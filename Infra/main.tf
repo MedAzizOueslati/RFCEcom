@@ -6,7 +6,8 @@ provider "azurerm" {
 
   // Si vous avez besoin de spécifier l'object_id explicitement, utilisez plutôt le bloc service_principal
   service_principal {
-    object_id = "9d909205-db22-4faa-af87-54cc824f14d4"
+    object_id = "9d909205-db22-4faa-af87-54cc824f14d4jar -tf RFCEcommerce-0.0.1-SNAPSHOT.jar
+"
   }
 }
 
