@@ -7,7 +7,7 @@
     image_name: backecom
     image_tag: latest
     dockerfile_path: ./Dockerfile
-    context_path: ./app
+    context_path: /var/lib/jenkins/workspace/backend_Pipeline
     acr_username: "EcomRegistr"
     acr_password: "ydYcpFbaLyVmvcFBFxBxuTytQfTO/7Od7zXfEmW/eh+ACRBus9+4"
 
@@ -20,17 +20,31 @@
 
     - name: Build the Docker image
       docker_image:
-        name: "{{ acr_login_server }}/{{ image_name }}:{{ image_tag }}"
+        name: ecomregistr.azurecr.io/backend:latest 
         path: "{{ context_path }}"
         dockerfile: "{{ dockerfile_path }}"
         source: build
       vars:
-        ansible_python_interpreter: /usr/bin/python3
+        ansible_python_interpreter: /usr/bin/python3.8
+
+    # - name: Build the Docker image
+    #   community.docker.docker_image:
+    #       name: ecomregistr.azurecr.io/backend:latest
+    #       path: /var/lib/jenkins/workspace/backend_Pipeline
+    #       dockerfile: ./Dockerfile
+    #       build: yes  # Ensure this parameter is included to indicate building from Dockerfile
+    #       source: build
+    #       state: present
+    #       push: false
+    #       force_tag: true
+    #   become: yes
+    #   become_user: root
+
 
     - name: Push the Docker image to ACR
       docker_image:
-        name: "{{ acr_login_server }}/{{ image_name }}:{{ image_tag }}"
+        name: ecomregistr.azurecr.io/backend:latest 
         source: local
         push: yes
       vars:
-        ansible_python_interpreter: /usr/bin/python3
+        ansible_python_interpreter: /usr/bin/python3.8

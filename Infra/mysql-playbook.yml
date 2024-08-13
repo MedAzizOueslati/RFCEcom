@@ -1,0 +1,13 @@
+---
+- name: Deploy MySQL on Kubernetes
+  hosts: localhost
+  tasks:
+    - name: Apply MySQL PV
+      k8s:
+        state: present
+        definition: "{{ lookup('template', 'mysql-pv.yaml') }}"
+
+    - name: Apply MySQL Deployment and Service
+      k8s:
+        state: present
+        definition: "{{ lookup('template', 'mysql-deployment.yaml') }}"

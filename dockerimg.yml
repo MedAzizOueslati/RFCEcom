@@ -1,0 +1,53 @@
+---
+- name: Build and push Docker image to ACR
+  hosts: localhost
+  vars:
+    acr_login_server: "ecomregistr.azurecr.io"
+    acr_username: "EcomRegistr"
+
+    docker_image_name: "backeom"
+    workspace_path: .
+    acr_name: ecomregistr
+    acr_login_server: "ecomregistr.azurecr.io"
+    dockerfile_path: ./Dockerfile
+
+    acr_password: "ydYcpFbaLyVmvcFBFxBxuTytQfTO/7Od7zXfEmW/eh+ACRBus9+4"
+
+  tasks:
+    - name: Docker login to ACR
+      command: >
+        az acr login --name {{ acr_login_server }} --username {{ acr_name }} --password {{ acr_password }}
+      register: login_output
+
+    - name: Check Docker login output
+      debug:
+        var: login_output
+
+    - name: Build Docker image
+      command: >
+        docker build -t backecom:latest .
+      args:
+        chdir: ./
+      register: build_output
+
+    - name: Check Docker build output
+      debug:
+        var: build_output
+
+    - name: Tag Docker image
+      command: >
+        docker tag backecom:latest {{ acr_login_server }}/backecom:latest
+      register: tag_output
+
+    - name: Check Docker tag output
+      debug:
+        var: tag_output
+
+    - name: Push Docker image to ACR
+      command: >
+        docker push {{ acr_login_server }}/backecom:latest
+      register: push_output
+
+    - name: Check Docker push output
+      debug:
+        var: push_output
