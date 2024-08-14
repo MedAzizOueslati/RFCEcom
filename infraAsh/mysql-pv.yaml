@@ -1,15 +1,29 @@
 ---
-- name: Deploy MySQL on Kubernetes
-  hosts: localhost
-  tasks:
-    - name: Apply MySQL Persistent Volume (PV)
-      k8s:
-        kubeconfig: /var/lib/jenkins/kubeconfig
-        state: present
-        definition: "{{ lookup('file', 'mysql-pv.yaml') }}"
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-pv-volume
+  namespace: default  # Replace with your actual namespace
 
-    - name: Apply MySQL Deployment and Service
-      k8s:
-        kubeconfig: /var/lib/jenkins/kubeconfig
-        state: present
-        definition: "{{ lookup('file', 'mysql-deployment.yaml') }}"
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: manual
+  hostPath:
+    path: "/mnt/data"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pv-claim
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: manual
