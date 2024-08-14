@@ -106,7 +106,7 @@
 
     - name: Deploy frontend-service
       kubernetes.core.k8s:
-        kubeconfig: "{{ kubeconfig_path }}"
+        kubeconfig: "/var/lib/jenkins/kubeconfig"
         state: present
         definition:
           apiVersion: v1
