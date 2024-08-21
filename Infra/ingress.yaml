@@ -2,24 +2,21 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: myapp-ingress-rfc
-  namespace: ingress-nginx
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
-  ingressClassName: nginx
+  ingressClassName: azure-application-gateway
   rules:
     - host: ecom.rfc.com
       http:
         paths:
           - path: /api
-            pathType: Prefix
+            pathType: Exact
             backend:
               service:
                 name: backend-service
                 port:
                   number: 8089
           - path: /
-            pathType: Prefix
+            pathType: Exact
             backend:
               service:
                 name: frontend-service
