@@ -9,6 +9,8 @@ metadata:
 spec:
   ingressClassName: azure-application-gateway
   rules:
+    http:
+      paths:
       - path: /
         pathType: Prefix
         backend:
