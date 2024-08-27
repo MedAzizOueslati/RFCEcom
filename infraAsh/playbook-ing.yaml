@@ -1,0 +1,17 @@
+- hosts: localhost
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+    kubeconfig_path: "/var/lib/jenkins/kubeconfig"
+  tasks:
+    - name: Set KUBECONFIG environment variable
+      ansible.builtin.set_fact:
+        KUBECONFIG: "{{ kubeconfig_path }}"
+      environment:
+        ANSIBLE_PYTHON_INTERPRETER: /usr/bin/python3
+
+    - name: Apply Ingress configuration
+      kubernetes.core.k8s:
+        state: present
+        definition: "{{ lookup('file', 'ingress.yaml') }}"
+      environment:
+        KUBECONFIG: "{{ kubeconfig_path }}"
