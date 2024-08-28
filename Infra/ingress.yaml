@@ -5,10 +5,10 @@ metadata:
   namespace: ingress-nginx
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
-    kubernetes.io/ingress.class: "nginx"
+    kubernetes.io/ingress.class: nginx
 spec:
   rules:
-  - host: ecom.rfc.com
+  - host:
     http:
       paths:
       - path: /
