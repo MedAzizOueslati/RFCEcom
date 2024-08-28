@@ -3,7 +3,6 @@ kind: Ingress
 metadata:
   name: myapp-ingress-rfc
   annotations:
-    appgw.ingress.kubernetes.io/ssl-redirect: "true"
     appgw.ingress.kubernetes.io/backend-protocol: "http"
 spec:
   ingressClassName: azure-application-gateway
