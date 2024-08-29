@@ -18,7 +18,7 @@
           kind: Ingress
           metadata:
             name: my-app-ingress
-            namespace: ingress-nginx
+            namespace: default
             annotations:
               kubernetes.io/ingress.class: "nginx"
           spec:
