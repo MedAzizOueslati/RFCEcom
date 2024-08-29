@@ -8,7 +8,6 @@
         KUBECONFIG: "{{ kubeconfig_path }}"
       environment:
         ANSIBLE_PYTHON_INTERPRETER: /usr/bin/python3
-        
 
     - name: Deploy Ingress
       kubernetes.core.k8s:
@@ -28,9 +27,9 @@
               http:
                 paths:
                   - path: /
-                      pathType: Prefix
-                      backend:
-                        service:
-                            name: frontend-service
-                            port:
-                              number: 80
+                    pathType: Prefix
+                    backend:
+                      service:
+                        name: frontend-service
+                        port:
+                          number: 80
