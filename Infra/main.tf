@@ -38,6 +38,11 @@ resource "azurerm_kubernetes_cluster" "existing" {
     network_policy = "azure"
   }
 
+  ingress_application_gateway {
+    effective_gateway_id = "/subscriptions/460bc14f-4852-44b0-809b-ce133bada6c4/resourceGroups/MC_RFC_Ecom_EcomCluster_northeurope/providers/Microsoft.Network/applicationGateways/ingress-appgateway"
+    gateway_name         = "ingress-appgateway"
+  }
+
   tags = {
     environment = "EcomRFC"
   }
