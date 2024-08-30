@@ -29,7 +29,12 @@ resource "azurerm_kubernetes_cluster" "existing" {
     node_count = 1  # Utilisation de 3 nœuds
     vm_size    = "Standard_DS2_v2"
   }
-
+resource "azurerm_application_gateway" "existing" {
+  name                = "ingress-appgateway"
+  resource_group_name = "MC_RFC_Ecom_EcomCluster_northeurope"
+  location            = "North Europe"
+  # Autres configurations nécessaires
+}
   identity {
     type = "SystemAssigned"
   }
