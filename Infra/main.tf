@@ -46,6 +46,9 @@ resource "azurerm_kubernetes_cluster" "existing" {
   tags = {
     environment = "EcomRFC"
   }
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 # Define the Application Gateway resource separately
