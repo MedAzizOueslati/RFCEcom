@@ -54,5 +54,8 @@ resource "azurerm_application_gateway" "existing" {
   resource_group_name = "MC_RFC_Ecom_EcomCluster_northeurope"
   location            = "North Europe"
   # Other configurations needed for the application gateway
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
