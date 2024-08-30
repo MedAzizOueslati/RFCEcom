@@ -30,9 +30,7 @@ resource "azurerm_kubernetes_cluster" "existing" {
     vm_size    = "Standard_DS2_v2"
   }
 
-  identity {
-    type = "SystemAssigned"
-  }
+
 
   network_profile {
     network_plugin = "azure"
