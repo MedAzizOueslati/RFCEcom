@@ -38,9 +38,14 @@ resource "azurerm_kubernetes_cluster" "existing" {
     network_policy = "azure"
   }
 
-  ingress_application_gateway {
+ ingress_application_gateway {
     effective_gateway_id = "/subscriptions/460bc14f-4852-44b0-809b-ce133bada6c4/resourceGroups/MC_RFC_Ecom_EcomCluster_northeurope/providers/Microsoft.Network/applicationGateways/ingress-appgateway"
     gateway_name         = "ingress-appgateway"
+    ingress_application_gateway_identity = [
+      {
+        user_assigned_identity_id = "/subscriptions/460bc14f-4852-44b0-809b-ce133bada6c4/resourcegroups/MC_RFC_Ecom_EcomCluster_northeurope/providers/Microsoft.ManagedIdentity/userAssignedIdentities/ingressapplicationgateway-ecomcluster"
+      },
+    ]
   }
 
   tags = {
