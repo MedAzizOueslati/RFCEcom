@@ -25,6 +25,7 @@
               nginx.ingress.kubernetes.io/ssl-redirect: "true"
               nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
               cert-manager.io/cluster-issuer: "letsencrypt"
+              cert-manager.io/inject-ca-from-secret: "lb/cert-manager-webhook-tls"
 
           spec:
             tls:
