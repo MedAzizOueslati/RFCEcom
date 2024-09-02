@@ -2,7 +2,6 @@
   vars:
     ansible_python_interpreter: /usr/bin/python3
     kubeconfig_path: "/var/lib/jenkins/kubeconfig"
-    namespace: "default"
   tasks:
     - name: Set KUBECONFIG environment variable
       ansible.builtin.set_fact:
@@ -19,6 +18,8 @@
           kind: Ingress
           metadata:
             name: my-app-ingress
+            namespace: "default"
+
           spec:
             ingressClassName: nginx
             rules:
