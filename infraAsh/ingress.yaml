@@ -27,9 +27,9 @@
 
           spec:
             tls:
-           - hosts: 
-             - ecomrfc.dc2.cloudapp.xpressazure.com
-             secretName: selfsigned-cert-tls
+            - hosts: 
+              - ecomrfc.dc2.cloudapp.xpressazure.com
+              secretName: selfsigned-cert-tls
             ingressClassName: nginx
             rules:
               - host: ecomrfc.dc2.cloudapp.xpressazure.com
