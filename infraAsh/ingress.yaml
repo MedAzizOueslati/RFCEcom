@@ -23,13 +23,15 @@
               kubernetes.io/ingress.class: "nginx"
               ingress.kubernetes.io/ssl-redirect: "true"
               nginx.ingress.kubernetes.io/ssl-redirect: "true"
-              nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+              nginx.ingress.kubernetes.io/force-ssl-redirect: "true
+              cert-manager.io/cluster-issuer: letsencrypt
+
 
           spec:
             tls:
             - hosts: 
               - ecomrfc.dc2.cloudapp.xpressazure.com
-              secretName: selfsigned-cert-tls
+              cert-manager.io/cluster-issuer: letsencrypt
             ingressClassName: nginx
             rules:
               - host: ecomrfc.dc2.cloudapp.xpressazure.com
