@@ -4,7 +4,7 @@ metadata:
   name: myapp-ingress-rfc
   annotations:
     kubernetes.io/ingress.class: "azure/application-gateway"  
-    appgw.ingresskubernetes.io/appgw-ssl-certificate: "ecomrfc-tls-secret"
+    appgw.ingresskubernetes.io/appgw-ssl-certificate: "cert-default-ecomrfc-tls-secret"
     appgw.ingress.kubernetes.io/request-timeout: "600"
 spec:
   ingressClassName: azure-application-gateway
