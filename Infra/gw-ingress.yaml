@@ -11,7 +11,7 @@ spec:
   tls:
   - hosts:
     - ecomrfc.northeurope.cloudapp.azure.com
-    secretName: ecomrfc-tls-secret
+    secretName: cert-default-ecomrfc-tls-secret
   rules:
   - host: ecomrfc.northeurope.cloudapp.azure.com
     http:
