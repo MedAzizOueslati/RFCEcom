@@ -5,7 +5,9 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: "azure/application-gateway"  
     appgw.ingresskubernetes.io/appgw-ssl-certificate: "cert-default-ecomrfc-tls-secret"
-    appgw.ingress.kubernetes.io/request-timeout: "600"
+    appgw.ingress.kubernetes.io/request-timeout: "600" 
+    appgw.ingress.kubernetes.io/backend-protocol: "HTTP"
+
 spec:
   ingressClassName: azure-application-gateway
   tls:
