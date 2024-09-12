@@ -4,7 +4,7 @@ metadata:
   name: myapp-ingress-rfc
   annotations:
     kubernetes.io/ingress.class: "azure/application-gateway"  
-    appgw.ingresskubernetes.io/appgw-ssl-certificate: "cert-default-ecomrfc-tls-secret"
+    appgw.ingresskubernetes.io/appgw-ssl-certificate: "ssl"
     appgw.ingress.kubernetes.io/request-timeout: "600" 
     appgw.ingress.kubernetes.io/backend-protocol: "HTTP"
 
@@ -13,7 +13,7 @@ spec:
   tls:
   - hosts:
     - ecomrfc.northeurope.cloudapp.azure.com
-    secretName: cert-default-ecomrfc-tls-secret
+    secretName: ssl
   rules:
   - host: ecomrfc.northeurope.cloudapp.azure.com
     http:
