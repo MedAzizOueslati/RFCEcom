@@ -31,7 +31,7 @@
             tls:
             - hosts:
               - ecomrfc.dc2.cloudapp.xpressazure.com
-              secretName: letsencrypt-account-key
+              secretName: ecom-tls
             ingressClassName: nginx
             rules:
               - host: ecomrfc.dc2.cloudapp.xpressazure.com
