@@ -3,14 +3,15 @@ kind: Ingress
 metadata:
   name: myapp-ingress-rfc
   annotations:
-    kubernetes.io/ingress.class: "azure/application-gateway"
-    appgw.ingress.kubernetes.io/ssl-redirect: "true"
-    appgw.ingress.kubernetes.io/appgw-ssl-certificate: "cert"
+    cert-manager.io/cluster-issuer: letsencrypt-issuer
+    externaldns: enabled
+    kubernetes.io/tls-acme: 'true'  
 spec:
   ingressClassName: azure-application-gateway
   tls:
   - hosts:
     - ecomrfc.northeurope.cloudapp.azure.com
+    secretName: ecomrfc-tls-secret  
   rules:
   - host: ecomrfc.northeurope.cloudapp.azure.com
     http:
