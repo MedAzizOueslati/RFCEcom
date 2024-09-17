@@ -8,7 +8,8 @@ metadata:
     kubernetes.io/ingress.class: nginx
 spec:
   rules:
-  - host:
+  - host: ecom.rfc.local
+  secretName: ecomrfc-tls-secret
     http:
       paths:
       - path: /
