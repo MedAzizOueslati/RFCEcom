@@ -9,7 +9,6 @@ metadata:
 spec:
   rules:
   - host: ecom.rfc.local
-  secretName: ecomrfc-tls-secret
     http:
       paths:
       - path: /
@@ -19,4 +18,8 @@ spec:
             name: frontend-service
             port:
               number: 80
+  tls:
+  - hosts:
+    - ecom.rfc.local
+    secretName: ecomrfc-tls-secret
 
