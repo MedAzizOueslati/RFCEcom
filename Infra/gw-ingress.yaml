@@ -5,13 +5,13 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: "azure/application-gateway"
     appgw.ingress.kubernetes.io/ssl-redirect: "true"
-    appgw.ingress.kubernetes.io/appgw-ssl-certificate: "<certificate-name>"
+    appgw.ingress.kubernetes.io/appgw-ssl-certificate: "cert"
 spec:
   ingressClassName: azure-application-gateway
   tls:
   - hosts:
     - ecomrfc.northeurope.cloudapp.azure.com
-    secretName: tls-secret  # Ensure this secret is populated from Key Vault or the CSI driver
+    secretName: tls-secret
   rules:
   - host: ecomrfc.northeurope.cloudapp.azure.com
     http:
