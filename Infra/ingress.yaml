@@ -10,9 +10,9 @@ spec:
   tls:
   - secretName: ecomrfc-tls-secret
     hosts:
-    - "*"
+    - *
   rules:
-  - host: "*"
+  - host: *
     http:
       paths:
       - path: /
