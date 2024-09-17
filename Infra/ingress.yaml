@@ -9,10 +9,7 @@ spec:
   ingressClassName: nginx
   tls:
   - secretName: ecomrfc-tls-secret
-    hosts:
-    - 
   rules:
-  - host: 
     http:
       paths:
       - path: /
