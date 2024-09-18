@@ -3,7 +3,8 @@ kind: Ingress
 metadata:
   name: myapp-ingress-rfc
   annotations:
-    externaldns: enabled
+        appgw.ingress.kubernetes.io/appgw-ssl-certificate: "cert"
+        appgw.ingress.kubernetes.io/backend-protocol: "https"
 spec:
   ingressClassName: azure-application-gateway
   tls:
