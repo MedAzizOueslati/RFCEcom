@@ -9,8 +9,7 @@ spec:
   ingressClassName: azure-application-gateway
   tls:
   - hosts:
-    - ecomrfc.northeurope.cloudapp.azure.local
-    secretName: ecomrfc-tls-secret  
+    - ecomrfc.northeurope.cloudapp.azure.com
   rules:
   - host: ecomrfc.northeurope.cloudapp.azure.com
     http:
