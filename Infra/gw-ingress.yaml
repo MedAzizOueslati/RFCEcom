@@ -3,9 +3,7 @@ kind: Ingress
 metadata:
   name: myapp-ingress-rfc
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-issuer
     externaldns: enabled
-    kubernetes.io/tls-acme: 'true'  
 spec:
   ingressClassName: azure-application-gateway
   tls:
