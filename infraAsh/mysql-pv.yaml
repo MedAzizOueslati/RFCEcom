@@ -11,7 +11,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: manual
+  storageClassName: managed-premium
   hostPath:
     path: "/mnt/data"
 ---
