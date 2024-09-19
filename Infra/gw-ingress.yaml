@@ -5,6 +5,7 @@ metadata:
   namespace: cert-manager
   annotations:
     appgw.ingress.kubernetes.io/ssl-redirect: "true"
+    appgw.ingress.kubernetes.io/ssl-certificate: "nginx1-cert"  
 spec:
   ingressClassName: azure-application-gateway
   rules:
