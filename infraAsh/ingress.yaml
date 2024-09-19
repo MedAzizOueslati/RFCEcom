@@ -22,16 +22,8 @@
             annotations:
               kubernetes.io/ingress.class: "nginx"
               ingress.kubernetes.io/ssl-redirect: "true"
-              nginx.ingress.kubernetes.io/ssl-redirect: "true"
               nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-              cert-manager.io/cluster-issuer: "letsencrypt"
-              cert-manager.io/inject-ca-from-secret: "lb/cert-manager-webhook-tls"
-
           spec:
-            tls:
-            - hosts:
-              - ecomrfc.dc2.cloudapp.xpressazure.com
-              secretName: ecom-tls
             ingressClassName: nginx
             rules:
               - host: ecomrfc.dc2.cloudapp.xpressazure.com
@@ -44,4 +36,9 @@
                           name: frontend-service
                           port:
                             number: 80
+              tls:
+              - hosts:
+                - ecomrfc.dc2.cloudapp.xpressazure.com
+                secretName: nginx1-tls-secret
+
 
