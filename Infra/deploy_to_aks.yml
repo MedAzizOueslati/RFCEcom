@@ -36,7 +36,7 @@
                 - name: acr-auth
                 containers:
                 - name: backend
-                  image: EcomRegistr.azurecr.io/backecom:latest
+                  image: ecomregistr.azurecr.io/backecom:latest
                   ports:
                   - containerPort: 8089
                   env:
@@ -78,7 +78,7 @@
               spec:
                 containers:
                 - name: frontend
-                  image: EcomRegistr.azurecr.io/frontecom:latest
+                  image: ecomregistr.azurecr.io/frontecom:latest
                   ports:
                   - containerPort: 80  # NGINX usually listens on port 80
                 imagePullSecrets:
