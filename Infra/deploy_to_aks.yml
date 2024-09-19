@@ -19,7 +19,7 @@
           kind: Deployment
           metadata:
             name: backend-deployment
-            namespace: default
+            namespace: cert-manager
 
 
           spec:
@@ -64,7 +64,7 @@
           kind: Deployment
           metadata:
             name: frontend-deployment
-            namespace: default 
+            namespace: cert-manager 
 
           spec:
             replicas: 2
@@ -96,7 +96,7 @@
           kind: Service
           metadata:
             name: backend-service
-            namespace: default
+            namespace: cert-manager
           spec:
             selector:
               app: backend
@@ -115,7 +115,7 @@
           kind: Service
           metadata:
             name: frontend-service
-            namespace: default
+            namespace: cert-manager
           spec:
             selector:
               app: frontend
