@@ -36,9 +36,6 @@
                           name: frontend-service
                           port:
                             number: 80
-              tls:
-              - hosts:
-                - ecomrfc.dc2.cloudapp.xpressazure.com
-                secretName: nginx1-tls-secret
+
 
 
