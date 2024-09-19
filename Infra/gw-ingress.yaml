@@ -9,10 +9,6 @@ metadata:
 
 spec:
   ingressClassName: azure-application-gateway
-  tls:
-  - hosts:
-    - ecomrfc.northeurope.cloudapp.azure.com
-    secretName: ecomrfc-tls-secret
   rules:
   - host: ecomrfc.northeurope.cloudapp.azure.com
     http:
@@ -24,3 +20,8 @@ spec:
             name: frontend-service
             port:
               number: 80
+  tls:
+  - hosts:
+    - ecomrfc.northeurope.cloudapp.azure.com
+    secretName: nginx1-tls-secret  
+  
