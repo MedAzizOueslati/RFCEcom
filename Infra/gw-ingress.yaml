@@ -25,7 +25,7 @@ spec:
           service:
             name: backend-service
             port:
-              number: 80      
+              number: 8089      
   tls:
   - hosts:
     - ecomrfc.northeurope.cloudapp.azure.com
