@@ -76,7 +76,7 @@
               spec:
                 containers:
                   - name: frontend
-                    image: ecomregistr.azurecr.io/frontecom:latest1
+                    image: ecomregistr.azurecr.io/frontecom:latest
                     imagePullPolicy: Always
                     ports:
                       - containerPort: 80  # NGINX usually listens on port 80
